@@ -23,7 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    height: 120vh;
+    height: 100vh;
     gap: 20px;
     background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
     width: 200px;
