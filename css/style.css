@@ -1,7 +1,6 @@
 body {
     font-family: 'JetBrains Mono';
     background-color: #cfcfcf;
-    margin: 0;
 }
 .logo{
     display: flex;
@@ -24,8 +23,15 @@ body {
     color: white;
     text-decoration: none;
     padding: 15px 15px;
+    text-align: center;
+    align-items: center;
     border-radius: 10px;
     font-family: 'JetBrains Mono', monospace;
+    width: 150px;
+}
+
+.menu a:hover{
+    background: linear-gradient(to right, #635b5b, #807f7f);
 }
 
 .menu {
@@ -38,7 +44,7 @@ body {
     height: 100vh;
     gap: 50px;
     margin-bottom: -60px;
-    background-color: #000000;
+    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
     width: fit-content;
     box-sizing: border-box;
 }
@@ -73,8 +79,9 @@ body {
     padding: 25px;
     border-radius: 20px;
     display: grid;
+    margin-left: 400px;
     grid-template-columns: 100px 250px 100px 250px;
-    gap: 15px;
+    gap: 30px;
     align-items: center;
 }
 .formCad input{
