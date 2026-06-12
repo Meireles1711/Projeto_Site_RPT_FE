@@ -56,3 +56,14 @@ const usuarioAtualizado = { nome: 'João Silva' };
 editUser(1, usuarioAtualizado);
 
 deleteUser(1);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuLinks = document.querySelector('.menu-links');
+    const body = document.body;
+
+    menuToggle.addEventListener('click', () => {
+        menuLinks.classList.toggle('active'); // Mostra/esconde o menu
+        body.classList.toggle('no-scroll'); // Adiciona ou remove a classe no-scroll
+    });
+});

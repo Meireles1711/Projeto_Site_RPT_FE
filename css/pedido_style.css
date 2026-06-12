@@ -59,51 +59,44 @@ body {
     background: linear-gradient(to right, #635b5b, #807f7f);
 }
 
-.formCad {
+.formCad{
+    background-color: rgb(94, 94, 94);
+    padding: 25px;
+    border-radius: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-    background-color: #ffffff;
+    margin-left: 400px;
+    grid-template-columns: 100px 250px 100px 250px;
+    gap: 30px;
+    align-items: center;
+}
+.formCad input{
+    font-family: 'JetBrains Mono';
+
+    border-radius: 6px;
+    border: none;
+
+    background-color: #e1e1e1;
+
+    width: 100%;
+    height: 30px;
+
+    box-sizing: border-box;
+
+    padding-left: 10px;
+}
+.formCad textarea{
+    width: 100%;
+    max-width: 520px;
+
+    height: 50px;
+
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    margin: 50px auto;
-    margin-left: 250px; /* Espaço para o menu fixo */
-}
 
-.formCad label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #444;
-}
+    resize: none;
 
-.formCad input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100%;
     box-sizing: border-box;
-    background-color: #f9f9f9;
-}
 
-.formCad input[readonly] {
-    background-color: #e9ecef;
-    color: #495057;
-    font-weight: bold;
-}
-
-.formCad textarea {
-    grid-column: span 2;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
+    padding: 8px;
 }
 
 footer {
