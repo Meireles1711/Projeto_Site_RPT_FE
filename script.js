@@ -1,69 +1,21 @@
-// Função para criar um usuário
-async function createUser(userData) {
-    try {
-        const response = await fetch('https://sua-api.com/usuarios', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
-        const data = await response.json();
-        console.log('Usuário criado:', data);
-    } catch (error) {
-        console.error('Erro ao criar usuário:', error);
-    }
-}
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Função para editar um usuário
-async function editUser(userId, updatedData) {
-    try {
-        const response = await fetch(`https://sua-api.com/usuarios/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedData),
-        });
-        const data = await response.json();
-        console.log('Usuário atualizado:', data);
-    } catch (error) {
-        console.error('Erro ao editar usuário:', error);
-    }
-}
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4WxTlKWLc_tXx5jlNURmHKfz9P1xYc2Q",
+    authDomain: "nvstore-3b5a1.firebaseapp.com",
+    projectId: "nvstore-3b5a1",
+    storageBucket: "nvstore-3b5a1.firebasestorage.app",
+    messagingSenderId: "792835163032",
+    appId: "1:792835163032:web:7fb21222bc3f24a46161ed",
+    measurementId: "G-0B69NX091W"
+  };
 
-// Função para excluir um usuário
-async function deleteUser(userId) {
-    try {
-        const response = await fetch(`https://sua-api.com/usuarios/${userId}`, {
-            method: 'DELETE',
-        });
-        if (response.ok) {
-            console.log('Usuário excluído com sucesso');
-        } else {
-            console.error('Erro ao excluir usuário');
-        }
-    } catch (error) {
-        console.error('Erro ao excluir usuário:', error);
-    }
-}
-
-// Exemplo de uso
-const novoUsuario = { nome: 'João', email: 'joao@email.com' };
-createUser(novoUsuario);
-
-const usuarioAtualizado = { nome: 'João Silva' };
-editUser(1, usuarioAtualizado);
-
-deleteUser(1);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menuLinks = document.querySelector('.menu-links');
-    const body = document.body;
-
-    menuToggle.addEventListener('click', () => {
-        menuLinks.classList.toggle('active'); // Mostra/esconde o menu
-        body.classList.toggle('no-scroll'); // Adiciona ou remove a classe no-scroll
-    });
-});
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
