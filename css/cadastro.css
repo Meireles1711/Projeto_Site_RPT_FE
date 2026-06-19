@@ -1,0 +1,122 @@
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #cfcfcf;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.logo{
+    display: flex;
+    align-items: column;
+}
+
+.menu img{
+    width: 200px;
+    height: 200px;
+}
+
+.menu h1{
+    margin-top: -20px;
+    color: white;
+}
+
+.menu {
+    border-radius: 35px;
+    display: flex;
+    margin-top: -55px;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    height: 100vh;
+    gap: 50px;
+    margin-bottom: -60px;
+    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+    padding: 30px 30px 30px 0;
+    position: relative;
+}
+
+.container label{
+    background-color: #88b1e1;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.formCad{
+    background-color: rgb(94, 94, 94);
+    padding: 25px;
+    border-radius: 20px;
+    display: grid;
+    margin-left: 400px;
+    grid-template-columns: 100px 250px 100px 250px;
+    gap: 30px;
+    align-items: center;
+}
+
+.formCad input{
+    font-family: 'JetBrains Mono';
+    border-radius: 6px;
+    border: none;
+    background-color: #e1e1e1;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.formCad textarea{
+    width: 100%;
+    max-width: 520px;
+    height: 50px;
+    border-radius: 10px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+footer {
+    color: aliceblue;
+    background: black;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.botao{
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #88b1e1;
+}
+
+.botao:hover{
+    background-color: #5488c4;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.botao-voltar {
+    position: absolute;
+    top: 300px;
+    left: 515px;
+    width: 140px;
+    z-index: 1000;
+}
