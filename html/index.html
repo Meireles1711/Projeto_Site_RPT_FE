@@ -19,54 +19,56 @@
 
         <nav class="menu">
             <img src="../images/logo.png" alt="">
-            <h1>NV Store</h1> 
+            <h1>NV Store</h1>
             <a href="./index.html">Clientes</a>
             <a href="./cidades.html">Cidades</a>
             <a href="./tp_pagamentos.html">Tipos de Pagamento</a>
             <a href="./pedidos.html">Pedidos</a>
         </nav>
-
-
-        <form action="" class="formCad">
-
-            <label for="nome">Nome</label>
-            <input type="text" id=nome placeholder="Digite seu Nome">
-
-            <label for="endereco">Endereço</label>
-            <input type="text" id="endereco" placeholder="Digite seu Endereço">
-            
-            <label for="email">E-mail</label>
-            <input type="text" id="email" placeholder="Digite seu E-mail">
-            
-            <label for="cep">CEP</label>
-            <input type="text" id="cep" placeholder="Digite o CEP da sua cidade">
-
-            <label for="tel">Telefone</label>
-            <input type="text" dir="tel" placeholder="Digite seu Telefone">
-
-            <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" placeholder="Digite sua Cidade">
-
-
-            <label for="bairro">Bairro</label>
-            <input type="text" id="bairro" placeholder="Digite seu Bairro ">
-
-            <label for="cpf">CPF</label>
-            <input type="text" id="cpf" placeholder="Digite seu CPF ">
-
-            <label for="obs">Observações</label>
-            <textarea name="obs" id="obs"></textarea>
-
-            <button class="botao" type="button">Enviar</button>
-
-            <button class="botao" type="button" onclick="window.location.href='../html/cadastro_cliente.html'">"n sei o no</button>
-        </form>
-
     </div>
 
     <footer>© Pertence a Meireles Enterprises</footer>
 
-    
+    <div id="modalCadastro" class="modal">
+
+        <div class="conteudoModal">
+
+            <span id="fecharCadastro">&times;</span>
+            <form action="" class="formCad">
+                
+                <label for="nome">Nome</label>
+                <input type="text" id=nome placeholder="Digite seu Nome">
+                
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" placeholder="Digite seu Endereço">
+                
+                <label for="email">E-mail</label>
+                <input type="text" id="email" placeholder="Digite seu E-mail">
+                
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" placeholder="Digite o CEP da sua cidade"> 
+                
+                <label for="tel">Telefone</label>
+                <input type="text" dir="tel" placeholder="Digite seu Telefone"> 
+                
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" placeholder="Digite sua Cidade"> 
+                
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" placeholder="Digite seu Bairro "> 
+                
+                <label for="cpf">CPF</label> 
+                <input type="text" id="cpf" placeholder="Digite seu CPF "> 
+                
+                <label for="obs">Observações</label> 
+                <textarea name="obs" id="obs"></textarea>
+            
+            </form>
+
+
+        </div>
+
+    </div>
 
 </body>
 
