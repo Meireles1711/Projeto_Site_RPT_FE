@@ -10,3 +10,4 @@ btnAbrir.addEventListener("click", () => {
 btnFechar.addEventListener("click", () => {
     modal.style.display = "none";
 });
+

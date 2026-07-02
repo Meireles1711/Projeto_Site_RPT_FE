@@ -4,16 +4,20 @@
     box-sizing:border-box;
 }
 
+html, body{
+    height:100%;
+}
+
 body{
     font-family:'JetBrains Mono', monospace;
     background:#d9d9d9;
-    display:flex;
+    display:grid;
+    grid-template-columns:260px 1fr;
     min-height:100vh;
-    overflow:hidden;
 }
 
 .menu{
-    width:260px;
+    width:100%;
     background:linear-gradient(to bottom,#1b1b1b,#3a3a3a);
     display:flex;
     flex-direction:column;
@@ -46,17 +50,29 @@ body{
     background:#88b1e1;
 }
 
-.container{
-    flex:1;
+.conteudo{
     display:flex;
     flex-direction:column;
     padding:40px;
-    overflow:auto;
+    min-width:0;
+    width:100%;
 }
 
 .tituloPagina{
     font-size:30px;
     margin-bottom:40px;
+    color:#222;
+}
+
+.cabecalho{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.cabecalho h2{
+    font-size:30px;
     color:#222;
 }
 
@@ -80,6 +96,17 @@ body{
 
 .botao:hover{
     background:#6799d2;
+}
+
+.listaClientes{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+    gap:25px;
+    align-content:start;
+}
+
+.listaClientes table{
+    width:1580px;
 }
 
 .modal{
@@ -163,9 +190,30 @@ body{
     border-color:#88b1e1;
 }
 
-.formBotao{
+.botoesForm{
     grid-column:1 / 5;
-    justify-self:center;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.botoesForm #cancelar{
+    width:150px;
+    height:45px;
+    border:none;
+    border-radius:10px;
+    background:#6d6d6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.botoesForm #cancelar:hover{
+    background:#555;
+}
+
+.formBotao{
     width:220px;
     height:45px;
     border:none;
@@ -250,12 +298,10 @@ button:active{
 @media(max-width:1000px){
 
     body{
-        flex-direction:column;
+        grid-template-columns:1fr;
     }
 
     .menu{
-        width:100%;
-        height:auto;
         flex-direction:row;
         flex-wrap:wrap;
         justify-content:center;
@@ -266,8 +312,15 @@ button:active{
         width:120px;
     }
 
-    .container{
+    .conteudo{
         padding:20px;
+        min-height:auto;
+    }
+
+    .cabecalho{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
     }
 
     .formCad{
@@ -276,9 +329,19 @@ button:active{
 
     .formCad label,
     .formCad input,
-    .formCad textarea,
-    .formBotao{
+    .formCad textarea{
         grid-column:auto;
+        width:100%;
+    }
+
+    .botoesForm{
+        grid-column:auto;
+        flex-direction:column;
+        width:100%;
+    }
+
+    .botoesForm #cancelar,
+    .formBotao{
         width:100%;
     }
 
