@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NV Store</title>
 
-    <link rel="stylesheet" href="../css/cidades_style.css">
+    <link rel="stylesheet" href="../css/produtos.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,15 +37,16 @@
         <div class="card">
     
         <div class="topo">
-        <h1>Cidades</h1>
+        <h1>Produtos</h1>
         <button onclick="abrirModalAdicionar()">Adicionar Cidade</button>
     </div>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>UF</th>
+                <th>Descrição</th>
+                <th>Valor Unitario</th>
+                <th>Estoque</th>
                 
             </tr>
         </thead>
@@ -59,14 +60,16 @@
     
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
-            <h2>Adicionar Cidade</h2>
-            <Label>Nome</Label>
-            <input id="nomeAdd">
-            <Label>Uf</Label>
-            <input id="ufAdd">
-    
+            <h2>Adicionar Produto</h2>
+            <Label>Descrição</Label>
+            <input id="descricaoAdd">
+            <Label>Unidade</Label>
+            <input id="unidadeAdd">
+            <Label>Valor Unitario</Label>
+            <input id="valorAdd">
+            <Label>Estoque</Label>
+            <input id="estoqueAdd">
            
-    
            
     
             <div class="modal-buttons">
@@ -78,14 +81,19 @@
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
-        <h2>Editar Cidade</h2>
+        <h2>Editar Produto</h2>
         <input id="idEdit" hidden>
     
-        <Label>Nome</Label>
-        <input id="nomeEdit">
-        <Label>Uf</Label>
-        <input id="ufEdit">
-    
+        
+        <Label>Descrição</Label>
+        <input id="descricaoEdit">
+        <Label>Unidade</Label>
+        <input id="unidadeEdit">
+        <Label>Valor Unitario</Label>
+        <input id="valorEdit">
+        <Label>Estoque</Label>
+        <input id="estoqueEdit">
+       
        
     
         <div class="modal-buttons">
@@ -102,7 +110,7 @@
 
     </footer>
 
-    <script src="../java/cidades.js"></script>
+    <script src="../java/produtos.js"></script>
 
 </body>
 
