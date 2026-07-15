@@ -1,0 +1,416 @@
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "JetBrains Mono", monospace;
+    background: #d9d9d9;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU */
+
+.menu {
+    width: 300px;
+    background: linear-gradient(180deg, #2b2b2b 0%, #000 100%);
+    border-top-right-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px 20px;
+    box-shadow: 5px 0 20px rgba(0,0,0,.35);
+}
+
+.menu img{
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.menu h1{
+    color: white;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.menu a{
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #e6e6e6;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 18px;
+
+    background: linear-gradient(90deg,#5c5c5c,#777);
+
+    border-radius: 15px;
+
+    transition: .3s;
+
+   
+}
+
+.menu a:hover{
+
+    background: #6b90ff;
+    color: white;
+
+    transform: translateX(10px);
+
+    box-shadow: 0 8px 15px rgba(0,0,0,.3);
+
+   
+
+}
+
+/* CONTEÚDO */
+
+.conteiner{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:60px;
+}
+
+.card{
+
+    width:100%;
+    max-width:1000px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+/* TOPO */
+
+.topo{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.topo h1{
+
+    color:#333;
+
+    font-size:34px;
+
+}
+
+.topo button{
+
+    background:#5f8cff;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 24px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.topo button:hover{
+
+    background:#4778f5;
+
+    transform:scale(1.05);
+
+}
+
+/* TABELA */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:#5f8cff;
+
+    color:white;
+
+}
+
+th{
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+tbody tr:hover{
+
+    background:#f5f8ff;
+
+}
+
+/* BOTÕES DA TABELA */
+
+td button{
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    margin-right:8px;
+
+    transition:.3s;
+
+}
+
+.editar{
+
+    background:#4CAF50;
+
+    color:white;
+
+}
+
+.editar:hover{
+
+    background:#388E3C;
+
+}
+
+.excluir{
+
+    background:#f44336;
+
+    color:white;
+
+}
+
+.excluir:hover{
+
+    background:#d32f2f;
+
+}
+
+/* MODAL */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:1000;
+
+}
+
+.modal-content{
+
+    background:white;
+
+    width:420px;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+
+}
+
+.modal-content h2{
+
+    margin-bottom:20px;
+
+    color:#333;
+
+}
+
+.modal-content label{
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+.modal-content input{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+.modal-content input:focus{
+
+    border-color:#5f8cff;
+
+}
+
+/* BOTÕES MODAL */
+
+.modal-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:30px;
+
+}
+
+.modal-buttons button{
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.modal-buttons button:first-child{
+
+    background:#888;
+
+    color:white;
+
+}
+
+.modal-buttons button:last-child{
+
+    background:#5f8cff;
+
+    color:white;
+
+}
+
+/* FOOTER */
+
+footer{
+
+    position:fixed;
+
+    bottom:10px;
+
+    right:20px;
+
+    color:#444;
+
+    font-size:14px;
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    body{
+
+        flex-direction:column;
+
+    }
+
+    .menu{
+
+        width:100%;
+
+        border-radius:0;
+
+        padding:20px;
+
+    }
+
+    .menu a{
+
+        font-size:18px;
+
+    }
+
+    .conteiner{
+
+        padding:20px;
+
+    }
+
+    .topo{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        align-items:flex-start;
+
+    }
+
+}

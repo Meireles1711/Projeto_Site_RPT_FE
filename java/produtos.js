@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/cidades';
+const API_URL = 'http://localhost:3000/produtos';
 
 
 async function  listar() { 
@@ -87,7 +87,7 @@ async function  listar() {
         await fetch(`${API_URL}/${id}`,{
             method:"PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({nome,uf})
+            body: JSON.stringify({descricao,unidade,valor_unit,estoque})
         });
         fecharModal("modalEditar");
         listar();
