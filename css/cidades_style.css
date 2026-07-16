@@ -1,5 +1,7 @@
 /* RESET */
 
+/* RESET */
+
 * {
     margin: 0;
     padding: 0;
@@ -38,7 +40,7 @@ body {
 }
 
 .menu a{
-    width: 80%;
+    width: 100%;
     text-align: center;
     text-decoration: none;
     color: #e6e6e6;

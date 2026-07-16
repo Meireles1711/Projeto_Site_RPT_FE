@@ -1,11 +1,7 @@
 const API_URL = 'http://localhost:3000/itens';
 
 
-async function  listar() { 
-    
-
-
-
+async function listar() {
 
     const res = await fetch(API_URL);
     const formas_p = await res.json();
@@ -13,30 +9,39 @@ async function  listar() {
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    formas_p.forEach(tipo=> {
-        tabela.innerHTML +=`
+    formas_p.forEach(tipo => {
+        tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
                 <td>${tipo.pedido_id}</td>
-                td>${tipo.produto_id}</td>
-                td>${tipo.descricao}</td>
-                td>${tipo.valor_unit}</td>
+                <td>${tipo.produto_id}</td>
+                <td>${tipo.descricao}</td>
+                <td>${tipo.valor_unit}</td>
                 <td>${tipo.quantidade}</td>
-                 <td>${tipo.subtotal}</td>
-                
-                 <td>
-                   <button onclick="abrirEditar(${tipo.id}, '${tipo.pedido_id}', '${tipo.produto_id}', '${tipo.descricao}', '${tipo.valor_unit}', '${tipo.quantidade}', '${tipo.subtotal}')">Editar</button>
-                      <button onclick="deletar(${tipo.id})">Excluir</button>
-                </td>
+                <td>${tipo.subtotal}</td>
 
+                <td>
+                   <td>
+    <button onclick="abrirEditar(
+        ${tipo.id},
+        ${tipo.pedido_id},
+        ${tipo.produto_id},
+        \`${tipo.descricao}\`,
+        ${tipo.valor_unit},
+        ${tipo.quantidade},
+        ${tipo.subtotal}
+    )">
+        Editar
+    </button>
 
-
-            </tr>
-        
-        `
-        
+    <button onclick="deletar(${tipo.id})">
+        Excluir
+    </button>
+</td>
+        `;
     });
-    }
+}
+    
     
     async function criar() {
         const pedido_id = document.getElementById("pedidoAdd").value;

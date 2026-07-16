@@ -38,7 +38,7 @@
     
         <div class="topo">
         <h1>Items Pedidos</h1>
-        <button onclick="abrirModalAdicionar()">Adicionar condição de Pagamento</button>
+        <button onclick="abrirModalAdicionar()">Adicionar Items Pedidos</button>
     </div>
     <table>
         <thead>
@@ -65,7 +65,11 @@
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
             <h2>Adicionar Itens Pedidos</h2>
-           
+            <Label>Pedido</Label>
+            <input id="pedidoAdd">
+
+            <Label>Produto</Label>
+            <input id="produtoAdd">
 
             <Label>Descrição</Label>
             <input id="descricaoAdd">
@@ -93,7 +97,12 @@
         <div class="modal-content">
         <h2>Editar Itens Pedidos</h2>
         <input id="idEdit" hidden>
-    
+
+        <Label>Pedido</Label>
+        <input id="pedidoEdit">
+        
+        <Label>Produto</Label>
+        <input id="produtoEdit">
     
         <Label>Descrição</Label>
         <input id="descricaoEdit">

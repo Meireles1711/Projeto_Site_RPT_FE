@@ -1,142 +1,410 @@
-body {
-    font-family: 'JetBrains Mono', monospace;
-    background-color: #cfcfcf;
+* {
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-
-.logo{
+body {
+    font-family: "JetBrains Mono", monospace;
+    background: #d9d9d9;
     display: flex;
-    align-items: column;
+    min-height: 100vh;
+}
+
+/* MENU */
+
+.menu {
+    width: 300px;
+    background: linear-gradient(180deg, #2b2b2b 0%, #000 100%);
+    border-top-right-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px 20px;
+    box-shadow: 5px 0 20px rgba(0,0,0,.35);
 }
 
 .menu img{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    margin-bottom: 10px;
 }
 
 .menu h1{
-    margin-top: -20px;
     color: white;
+    margin-bottom: 40px;
+    font-size: 32px;
 }
 
-.menu a {
-    display: inline-block;
-    background: linear-gradient(to right, #8b7f7f, #aaaaaa);
-    color: white;
-    text-decoration: none;
-    padding: 15px 15px;
+.menu a{
+    width: 100%;
     text-align: center;
-    align-items: center;
-    border-radius: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    width: 150px;
+    text-decoration: none;
+    color: #e6e6e6;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 18px;
+
+    background: linear-gradient(90deg,#5c5c5c,#777);
+
+    border-radius: 15px;
+
+    transition: .3s;
 }
 
 .menu a:hover{
-    background: linear-gradient(to right, #635b5b, #807f7f);
+
+    background: #6b90ff;
+    color: white;
+
+    transform: translateX(10px);
+
+    box-shadow: 0 8px 15px rgba(0,0,0,.3);
+
 }
 
-.menu {
-    border-radius: 35px;
-    display: flex;
-    margin-top: -55px;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    height: 100vh;
-    gap: 50px;
-    margin-bottom: -60px;
-    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
-    width: fit-content;
-    box-sizing: border-box;
+/* CONTEÚDO */
+
+.conteiner{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:60px;
 }
 
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.card{
+
+    width:100%;
+    max-width:1000px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
 }
 
-.container{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    gap: 40px;
-    padding: 30px 30px 30px 0;
+/* TOPO */
+
+.topo{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
 }
 
-.container label{
-    background-color: #88b1e1;
+.topo h1{
 
-    border-radius: 10px;
+    color:#333;
 
-    padding: 5px;
+    font-size:34px;
 
-    text-align: center;
-
-    font-size: 12px;
-}
-.formCad{
-    background-color: rgb(94, 94, 94);
-    padding: 25px;
-    border-radius: 20px;
-    display: grid;
-    margin-left: 400px;
-    grid-template-columns: 100px 250px 100px 250px;
-    gap: 30px;
-    align-items: center;
-}
-.formCad input{
-    font-family: 'JetBrains Mono';
-
-    border-radius: 6px;
-    border: none;
-
-    background-color: #e1e1e1;
-
-    width: 100%;
-    height: 30px;
-
-    box-sizing: border-box;
-
-    padding-left: 10px;
-}
-.formCad textarea{
-    width: 100%;
-    max-width: 520px;
-
-    height: 50px;
-
-    border-radius: 10px;
-
-    resize: none;
-
-    box-sizing: border-box;
-
-    padding: 8px;
-}
-footer {
-    color: aliceblue;
-    background: black;
-    padding: 20px;
-    text-align: center;
-    align-items: center;
 }
 
-.botao{
-    width: 100%;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 10px;
-    background-color: #88b1e1;
+.topo button{
+
+    background:#5f8cff;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 24px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
-.botao:hover{
-    background-color: #5488c4;
+.topo button:hover{
+
+    background:#4778f5;
+
+    transform:scale(1.05);
+
+}
+
+/* TABELA */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:#5f8cff;
+
+    color:white;
+
+}
+
+th{
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+tbody tr:hover{
+
+    background:#f5f8ff;
+
+}
+
+/* BOTÕES DA TABELA */
+
+td button{
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    margin-right:8px;
+
+    transition:.3s;
+
+}
+
+.editar{
+
+    background:#4CAF50;
+
+    color:white;
+
+}
+
+.editar:hover{
+
+    background:#388E3C;
+
+}
+
+.excluir{
+
+    background:#f44336;
+
+    color:white;
+
+}
+
+.excluir:hover{
+
+    background:#d32f2f;
+
+}
+
+/* MODAL */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:1000;
+
+}
+
+.modal-content{
+
+    background:white;
+
+    width:420px;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+
+}
+
+.modal-content h2{
+
+    margin-bottom:20px;
+
+    color:#333;
+
+}
+
+.modal-content label{
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+.modal-content input{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+.modal-content input:focus{
+
+    border-color:#5f8cff;
+
+}
+
+/* BOTÕES MODAL */
+
+.modal-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:30px;
+
+}
+
+.modal-buttons button{
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+.modal-buttons button:first-child{
+
+    background:#888;
+
+    color:white;
+
+}
+
+.modal-buttons button:last-child{
+
+    background:#5f8cff;
+
+    color:white;
+
+}
+
+/* FOOTER */
+
+footer{
+
+    position:fixed;
+
+    bottom:10px;
+
+    right:20px;
+
+    color:#444;
+
+    font-size:14px;
+
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    body{
+
+        flex-direction:column;
+
+    }
+
+    .menu{
+
+        width:100%;
+
+        border-radius:0;
+
+        padding:20px;
+
+    }
+
+    .menu a{
+
+        font-size:18px;
+
+    }
+
+    .conteiner{
+
+        padding:20px;
+
+    }
+
+    .topo{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        align-items:flex-start;
+
+    }
 }
