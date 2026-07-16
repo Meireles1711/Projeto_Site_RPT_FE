@@ -26,7 +26,7 @@ async function listar() {
                     <td>${cliente.cpf}</td>
                     <td>${cliente.email}</td>
                     <td>${cliente.telefone}</td>
-                    <td>${cliente.observasoes}</td>
+                    <td>${cliente.observacoes}</td>
 
                     <td>
                         <button onclick='abrirEditar(
@@ -39,7 +39,7 @@ async function listar() {
                             ${JSON.stringify(cliente.cpf)},
                             ${JSON.stringify(cliente.email)},
                             ${JSON.stringify(cliente.telefone)},
-                            ${JSON.stringify(cliente.observasoes)}
+                            ${JSON.stringify(cliente.observacoes)}
                         )'>
                             Editar
                         </button>
@@ -69,7 +69,7 @@ async function criar() {
     const cpf = document.getElementById("cpfAdd").value.trim();
     const email = document.getElementById("emailAdd").value.trim();
     const telefone = document.getElementById("telefoneAdd").value.trim();
-    const observasoes = document.getElementById("observasoesAdd").value.trim();
+    const observacoes = document.getElementById("observacoesAdd").value.trim();
 
     if (
         !nome ||
@@ -100,7 +100,7 @@ async function criar() {
                 cpf,
                 email,
                 telefone,
-                observasoes
+                observacoes
             })
         });
 
@@ -120,7 +120,7 @@ async function criar() {
 }
 
 // ===================== ABRIR MODAL =====================
-function abrirEditar(id, nome, endereco, bairro, cep, cidade_id, cpf, email, telefone, observasoes) {
+function abrirEditar(id, nome, endereco, bairro, cep, cidade_id, cpf, email, telefone, observacoes) {
 
     document.getElementById("idEdit").value = id;
     document.getElementById("nomeEdit").value = nome;
@@ -131,7 +131,7 @@ function abrirEditar(id, nome, endereco, bairro, cep, cidade_id, cpf, email, tel
     document.getElementById("cpfEdit").value = cpf;
     document.getElementById("emailEdit").value = email;
     document.getElementById("telefoneEdit").value = telefone;
-    document.getElementById("observasoesEdit").value = observasoes;
+    document.getElementById("observacoesEdit").value = observacoes;
 
     document.getElementById("modalEditar").style.display = "flex";
 }
@@ -148,7 +148,7 @@ async function atualizar() {
     const cpf = document.getElementById("cpfEdit").value.trim();
     const email = document.getElementById("emailEdit").value.trim();
     const telefone = document.getElementById("telefoneEdit").value.trim();
-    const observasoes = document.getElementById("observasoesEdit").value.trim();
+    const observacoes = document.getElementById("observacoesEdit").value.trim();
 
     if (
         !nome ||
@@ -179,7 +179,7 @@ async function atualizar() {
                 cpf,
                 email,
                 telefone,
-                observasoes
+                observacoes
             })
         });
 
@@ -226,6 +226,8 @@ async function deletar(id) {
 function fecharModal(idModal) {
     document.getElementById(idModal).style.display = "none";
 }
-
+function abrirModalAdicionar() {
+    document.getElementById("modalAdicionar").style.display = "flex";
+}
 // ===================== INICIAR =====================
 listar();
