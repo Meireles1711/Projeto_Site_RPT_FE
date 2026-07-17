@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/cidades';
+const API_URL = 'http://localhost:3000/condicao';
 
 
 async function  listar() { 
@@ -8,20 +8,19 @@ async function  listar() {
 
 
     const res = await fetch(API_URL);
-    const cidades = await res.json();
+    const  condicoes_p = await res.json();
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    cidades.forEach(tipo=> {
+    condicoes_p.forEach(tipo=> {
         tabela.innerHTML +=`
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.nome}</td>
-                  <td>${tipo.uf}</td>
+                <td>${tipo.descricao}</td>
                 
                  <td>
-                    <button onclick="abrirEditar(${tipo.id},'${tipo.nome}','${tipo.uf}')">Editar</button>
+                    <button onclick="abrirEditar(${tipo.id},'${tipo.descricao}')">Editar</button>
                     <button onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
 
@@ -35,13 +34,12 @@ async function  listar() {
     }
     
     async function criar() {
-        const nome = document.getElementById("nomeAdd").value;
-        const uf = document.getElementById("ufAdd").value;
+        const descricao = document.getElementById("descricaoAdd").value;
        
         await fetch(API_URL,{
             method: "POST" ,
             headers:{"Content-type": "application/json"},
-            body:JSON.stringify({nome,uf})
+            body:JSON.stringify({descricao})
         });
         fecharModal("modalAdicionar");
         listar();
@@ -55,11 +53,10 @@ async function  listar() {
         
     }
    
-    function abrirEditar(id,nome,uf) {
+    function abrirEditar(id,descricao) {
 
         document.getElementById("idEdit").value = id;
-        document.getElementById("nomeEdit").value = nome;
-        document.getElementById("ufEdit").value = uf;
+        document.getElementById("descricaoEdit").value = descricao;
        
     
     
@@ -73,13 +70,12 @@ async function  listar() {
 
         
         const id = document.getElementById("idEdit").value;
-        const nome = document.getElementById("nomeEdit").value;
-        const uf = document.getElementById("ufEdit").value;
+        const descricao = document.getElementById("descricaoEdit").value;
       
         await fetch(`${API_URL}/${id}`,{
             method:"PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({nome,uf})
+            body: JSON.stringify({descricao})
         });
         fecharModal("modalEditar");
         listar();
@@ -90,7 +86,7 @@ async function  listar() {
 
 
     async function deletar(id) {
-        if (!confirm("Deseja excluir esta Cidade ?")) return;
+        if (!confirm("Deseja excluir este Condição de Pagamento ?")) return;
         await fetch(`${API_URL}/${id}`,{
             method: "DELETE"
     });

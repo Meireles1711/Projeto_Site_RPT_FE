@@ -1,137 +1,269 @@
+/* =========================================================
+   PADRÃO NV STORE — TELAS DE LISTAGEM (tabela + modal)
+   ========================================================= */
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'JetBrains Mono', monospace;
     background-color: #cfcfcf;
-    margin: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow: hidden;
 }
 
-
-
-.logo{
+/* LINHA PRINCIPAL: menu + conteúdo */
+.layout {
     display: flex;
-    align-items: column;
+    flex: 1;
 }
 
-.menu img{
-    width: 200px;
-    height: 200px;
+/* MENU */
+.menu {
+    width: 260px;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 30px 15px;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, hsl(0, 0%, 25%) 5%, #000000 60%);
 }
 
-.menu h1{
-    margin-top: -20px;
+.menu img {
+    width: 120px;
+    height: 120px;
+}
+
+.menu h1 {
     color: white;
+    margin: 0;
+    font-size: 22px;
+    text-align: center;
 }
 
 .menu a {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     background: linear-gradient(to right, #8b7f7f, #aaaaaa);
     color: white;
     text-decoration: none;
-    padding: 15px 15px;
+    padding: 12px 10px;
     text-align: center;
-    align-items: center;
     border-radius: 10px;
     font-family: 'JetBrains Mono', monospace;
-    width: 150px;
+    font-size: 14px;
+    transition: .3s;
 }
 
-.menu a:hover{
+.menu a:hover {
     background: linear-gradient(to right, #635b5b, #807f7f);
 }
 
-.menu {
-    border-radius: 35px;
+/* CONTEÚDO */
+.conteiner {
+    flex: 1;
     display: flex;
-    margin-top: -55px;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    height: 100vh;
-    gap: 50px;
-    margin-bottom: -60px;
-    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
-    width: fit-content;
-    box-sizing: border-box;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px;
 }
 
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.container{
-    display: flex;
+.card {
     width: 100%;
-    align-items: center;
-    gap: 40px;
-    padding: 30px 30px 30px 0;
-}
-
-.container label{
-    background-color: #88b1e1;
-
-    border-radius: 10px;
-
-    padding: 5px;
-
-    text-align: center;
-
-    font-size: 12px;
-}
-.formCad{
-    background-color: rgb(94, 94, 94);
-    padding: 25px;
+    max-width: 1000px;
+    background: white;
     border-radius: 20px;
-    display: grid;
-    margin-left: 400px;
-    grid-template-columns: 100px 250px 100px 250px;
-    gap: 30px;
+    padding: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+}
+
+/* TOPO */
+.topo {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 30px;
 }
-.formCad input{
-    font-family: 'JetBrains Mono';
 
-    border-radius: 6px;
+.topo h1 {
+    color: #333;
+    font-size: 30px;
+}
+
+.topo button {
+    background: #88b1e1;
+    color: white;
     border: none;
-
-    background-color: #e1e1e1;
-
-    width: 100%;
-    height: 30px;
-
-    box-sizing: border-box;
-
-    padding-left: 10px;
-}
-.formCad textarea{
-    width: 100%;
-    max-width: 520px;
-
-    height: 50px;
-
+    padding: 14px 24px;
     border-radius: 10px;
-
-    resize: none;
-
-    box-sizing: border-box;
-
-    padding: 8px;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: .3s;
 }
+
+.topo button:hover {
+    background: #5488c4;
+    transform: scale(1.05);
+}
+
+/* TABELA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000);
+    color: white;
+}
+
+th {
+    padding: 16px;
+    text-align: left;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr {
+    transition: .2s;
+}
+
+tbody tr:hover {
+    background: #eef4fc;
+}
+
+/* BOTÕES DA TABELA */
+td button {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: .3s;
+}
+
+.editar {
+    background: #4CAF50;
+    color: white;
+}
+
+.editar:hover {
+    background: #388E3C;
+}
+
+.excluir {
+    background: #f44336;
+    color: white;
+}
+
+.excluir:hover {
+    background: #d32f2f;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    width: 420px;
+    max-width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .3);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.modal-content textarea {
+    resize: none;
+    height: 70px;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #88b1e1;
+}
+
+/* BOTÕES MODAL */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.modal-buttons button {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.modal-buttons button:first-child {
+    background: #888;
+    color: white;
+}
+
+.modal-buttons button:last-child {
+    background: #88b1e1;
+    color: white;
+}
+
+.modal-buttons button:last-child:hover {
+    background: #5488c4;
+}
+
+/* FOOTER */
 footer {
     color: aliceblue;
-    background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 30%);
+    background: black;
     padding: 20px;
     text-align: center;
-    align-items: center;
-}
-
-.botao{
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #88b1e1;
 }

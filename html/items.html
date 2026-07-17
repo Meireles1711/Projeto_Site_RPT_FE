@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NV Store</title>
 
-    <link rel="stylesheet" href="../css/tp-pagamento.css">
+    <link rel="stylesheet" href="../css/items.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,63 +32,81 @@
 
     </nav>
 
-   
         <div class="conteiner">
-    
+
         <div class="card">
-    
+
         <div class="topo">
-        <h1>Formas de Pagamentos</h1>
-        <button onclick="abrirModalAdicionar()">Adicionar Forma de Pagamento</button>
+        <h1>Items Pedidos</h1>
+        <button onclick="abrirModalAdicionar()">Adicionar Item</button>
     </div>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Pedido</th>
+                <th>Produto</th>
                 <th>Descrição</th>
-                
+                <th>Valor Unitário</th>
+                <th>Quantidade</th>
+                <th>Subtotal</th>
+
             </tr>
         </thead>
-    
+
         <tbody id="tabelaTipos">
-    
+
         </tbody>
     </table>
     </div>
     </div>
-    
+
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
-            <h2>Adicionar Forma Pagamento</h2>
+            <h2>Adicionar Item Pedido</h2>
+            <Label>Pedido id</Label>
+            <input id="pedidoAdd">
+            <Label>Produto id</Label>
+            <input id="produtoAdd">
             <Label>Descrição</Label>
             <input id="descricaoAdd">
-    
-           
-    
-           
-    
+            <Label>Valor Unitário</Label>
+            <input id="valorAdd">
+            <Label>Quantidade</Label>
+            <input id="quantidadeAdd">
+            <Label>Subtotal</Label>
+            <input id="subtotalAdd">
+
             <div class="modal-buttons">
                 <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
-                <button onclick="criar()">Salvar</button>    
+                <button onclick="criar()">Salvar</button>
             </div>
-    
+
         </div>
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
-        <h2>Editar Forma de Pagamento</h2>
+        <h2>Editar Item Pedido</h2>
         <input id="idEdit" hidden>
-    
+
+        <Label>Pedido id</Label>
+        <input id="pedidoEdit">
+        <Label>Produto id</Label>
+        <input id="produtoEdit">
         <Label>Descrição</Label>
         <input id="descricaoEdit">
-    
-       
-    
+        <Label>Valor Unitário</Label>
+        <input id="valorEdit">
+        <Label>Quantidade</Label>
+        <input id="quantidadeEdit">
+        <Label>Subtotal</Label>
+        <input id="subtotalEdit">
+
         <div class="modal-buttons">
             <button onclick="fecharModal('modalEditar')">Cancelar</button>
             <button onclick="atualizar()">Atualizar</button>
         </div>
-    
+
     </div>
     </div>
 
@@ -100,9 +118,8 @@
 
     </footer>
 
-    <script src="../java/tp_pagamentos.js"></script>
+    <script src="../java/items.js"></script>
 
 </body>
 
 </html>
-

@@ -9,28 +9,120 @@
     <script src='../script.js'></script>
 </head>
 <body>
-    <div class="container">
 
-        <nav class="menu">
-            <img src="../images/logo.png" alt="">
-            <h1>NV Store</h1> 
-            <a href="../html/index.html">Clientes</a>
-            <a href="../html/cidades.html">Cidades</a>
-            <a href="../html/tp_pagamentos.html">Tipos de Pagamento</a>
-            <a href="../html/pedidos.html">Pedidos</a>
-        </nav>
+    <div class="layout">
+    <nav class="menu">
 
-        <form action="" class="formCad">
-            <label for="id">ID</label>
-            <input type="text" id="id" readonly>
+        <img src="../images/logo.png" alt="Logo">
 
-            <label for="nomeClient">Cliente</label>
-            <input type="text" id="nomeClient" readonly>
+        <h1>NV Store</h1>
 
-            <button class="botao" type="button"></button>
+        <a href="./index.html">Clientes</a>
+        <a href="./cidades.html">Cidades</a>
+        <a href="./condicoes-p.html">Condições de Pagamento</a>
+        <a href="./tp_pagamentos.html">Formas de Pagamento</a>
+        <a href="./pedidos.html">Pedidos</a>
+        <a href="./items.html">Items Pedidos</a>
+        <a href="./produtos.html">Produtos</a>
 
-        </form>
+    </nav>
+
+        <div class="conteiner">
+    
+        <div class="card">
+    
+        <div class="topo">
+        <h1>Pedidos</h1>
+        <button onclick="abrirModalAdicionar()">Adicionar Pedido</button>
     </div>
-    <footer>© Pertence a Meireles Enterprises</footer>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Condição Pagamento</th>
+                <th>Forma Pagamento</th>
+                <th>Prazo Entrega</th>
+                
+            </tr>
+        </thead>
+    
+        <tbody id="tabelaTipos">
+    
+        </tbody>
+    </table>
+    </div>
+    </div>
+    
+    <div class="modal" id="modalAdicionar">
+        <div class="modal-content">
+            <h2>Adicionar Pedido</h2>
+            <Label>Data</Label>
+            <input id="dataAdd">
+
+            <Label>Cliente id</Label>
+            <input id="clienteAdd">
+            
+            <Label>Condicao Pagamento id</Label>
+            <input id="condicaoAdd">
+
+            <Label>Forma Pagamento id</Label>
+            <input id="formaAdd">
+           
+            <Label> Prazo Entrega</Label>
+            <input id="prazoAdd">
+
+            
+    
+           
+    
+           
+    
+            <div class="modal-buttons">
+                <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
+                <button onclick="criar()">Salvar</button>    
+            </div>
+    
+        </div>
+    </div>
+    <div class="modal" id="modalEditar">
+        <div class="modal-content">
+        <h2>Editar Pedido</h2>
+        <input id="idEdit" hidden>
+
+        <Label>Data</Label>
+        <input id="dataEdit">
+
+        <Label>Cliente id</Label>
+        <input id="clienteEdit">
+
+        <Label>Condicao Pagamento id</Label>
+        <input id="condicaoEdit">
+
+        <Label>Forma Pagamento id</Label>
+        <input id="formaEdit">
+
+        <Label>Prazo Entrega</Label>
+        <input id="prazoEdit">
+
+        <div class="modal-buttons">
+            <button onclick="fecharModal('modalEditar')">Cancelar</button>
+            <button onclick="atualizar()">Atualizar</button>
+        </div>
+
+    </div>
+    </div>
+
+        </div>
+
+    <footer>
+
+        © Pertence a Meireles Enterprises
+
+    </footer>
+
+    <script src="../java/pedidos.js"></script>
+
 </body>
 </html>

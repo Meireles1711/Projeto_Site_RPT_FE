@@ -17,11 +17,13 @@ async function  listar() {
         tabela.innerHTML +=`
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.nome}</td>
-                  <td>${tipo.uf}</td>
+                <td>${tipo.descricao}</td>
+                  <td>${tipo.unidade}</td>
+                  <td>${tipo.valor_unit}</td>
+                  <td>${tipo.estoque}</td>
                 
                  <td>
-                    <button onclick="abrirEditar(${tipo.id},'${tipo.nome}','${tipo.uf}')">Editar</button>
+                    <button onclick="abrirEditar(${tipo.id},'${tipo.descricao}','${tipo.unidade}','${tipo.valor_unit}','${tipo.estoque}')">Editar</button>
                     <button onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
 
@@ -35,13 +37,15 @@ async function  listar() {
     }
     
     async function criar() {
-        const nome = document.getElementById("nomeAdd").value;
-        const uf = document.getElementById("ufAdd").value;
+        const descricao = document.getElementById("descricaoAdd").value;
+        const unidade= document.getElementById("unidadeAdd").value;
+        const valor_unit = document.getElementById("valorAdd").value;
+        const estoque = document.getElementById("estoqueAdd").value;
        
         await fetch(API_URL,{
             method: "POST" ,
             headers:{"Content-type": "application/json"},
-            body:JSON.stringify({nome,uf})
+            body:JSON.stringify({descricao,unidade,valor_unit,estoque})
         });
         fecharModal("modalAdicionar");
         listar();
@@ -55,11 +59,13 @@ async function  listar() {
         
     }
    
-    function abrirEditar(id,nome,uf) {
+    function abrirEditar(id,descricao,unidade,valor_unit,estoque) {
 
         document.getElementById("idEdit").value = id;
-        document.getElementById("nomeEdit").value = nome;
-        document.getElementById("ufEdit").value = uf;
+        document.getElementById("descricaoEdit").value = descricao;
+        document.getElementById("unidadeEdit").value = unidade;
+        document.getElementById("valorEdit").value =valor_unit;
+        document.getElementById("estoqueEdit").value = estoque;
        
     
     
@@ -73,8 +79,10 @@ async function  listar() {
 
         
         const id = document.getElementById("idEdit").value;
-        const nome = document.getElementById("nomeEdit").value;
-        const uf = document.getElementById("ufEdit").value;
+        const descricao = document.getElementById("descricaoEdit").value;
+        const unidade = document.getElementById("unidadeEdit").value;
+        const valor_unit = document.getElementById("valorEdit").value;
+        const estoque = document.getElementById("estoqueEdit").value;
       
         await fetch(`${API_URL}/${id}`,{
             method:"PUT",
@@ -90,7 +98,7 @@ async function  listar() {
 
 
     async function deletar(id) {
-        if (!confirm("Deseja excluir esta Cidade ?")) return;
+        if (!confirm("Deseja excluir este Produto ?")) return;
         await fetch(`${API_URL}/${id}`,{
             method: "DELETE"
     });

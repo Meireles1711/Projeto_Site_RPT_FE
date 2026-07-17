@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NV Store</title>
 
-    <link rel="stylesheet" href="../css/tp-pagamento.css">
+    <link rel="stylesheet" href="../css/produtos.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,22 +30,24 @@
         <a href="./items.html">Items Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
+
     </nav>
 
-   
         <div class="conteiner">
     
         <div class="card">
     
         <div class="topo">
-        <h1>Formas de Pagamentos</h1>
-        <button onclick="abrirModalAdicionar()">Adicionar Forma de Pagamento</button>
+        <h1>Produtos</h1>
+        <button onclick="abrirModalAdicionar()">Adicionar Produto</button>
     </div>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Descrição</th>
+                <th>Valor Unitario</th>
+                <th>Estoque</th>
                 
             </tr>
         </thead>
@@ -59,12 +61,16 @@
     
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
-            <h2>Adicionar Forma Pagamento</h2>
+            <h2>Adicionar Produto</h2>
             <Label>Descrição</Label>
             <input id="descricaoAdd">
-    
+            <Label>Unidade</Label>
+            <input id="unidadeAdd">
+            <Label>Valor Unitario</Label>
+            <input id="valorAdd">
+            <Label>Estoque</Label>
+            <input id="estoqueAdd">
            
-    
            
     
             <div class="modal-buttons">
@@ -76,12 +82,19 @@
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
-        <h2>Editar Forma de Pagamento</h2>
+        <h2>Editar Produto</h2>
         <input id="idEdit" hidden>
     
+        
         <Label>Descrição</Label>
         <input id="descricaoEdit">
-    
+        <Label>Unidade</Label>
+        <input id="unidadeEdit">
+        <Label>Valor Unitario</Label>
+        <input id="valorEdit">
+        <Label>Estoque</Label>
+        <input id="estoqueEdit">
+       
        
     
         <div class="modal-buttons">
@@ -100,9 +113,8 @@
 
     </footer>
 
-    <script src="../java/tp_pagamentos.js"></script>
+    <script src="../java/produtos.js"></script>
 
 </body>
 
 </html>
-
