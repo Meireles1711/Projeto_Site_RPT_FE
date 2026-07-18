@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NV Store - Login</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="login-conteiner">
+        <div class="login-card">
+
+            <img src="../images/logo.png" alt="Logo">
+            <h1>NV Store</h1>
+            <p class="subtitulo">Acesse o sistema com suas credenciais</p>
+
+            <form id="formLogin" onsubmit="fazerLogin(); return false;">
+
+                <label for="usuarioLogin">Usuário</label>
+                <input id="usuarioLogin" type="text" maxlength="60" required autocomplete="username"
+                    placeholder="Seu usuário ou e-mail">
+
+                <label for="senhaLogin">Senha</label>
+                <input id="senhaLogin" type="password" maxlength="60" required autocomplete="current-password"
+                    placeholder="Sua senha">
+
+                <p class="login-erro" id="loginErro"></p>
+
+                <button type="submit">Entrar</button>
+
+            </form>
+
+            <p class="login-rodape">© Pertence a Meireles Enterprises</p>
+
+        </div>
+    </div>
+
+    <!--
+        Este é o protótipo visual da tela de login, no mesmo padrão do restante
+        do sistema. A função fazerLogin() ainda precisa ser implementada em
+        ../js/login.js, chamando o endpoint de autenticação do backend e
+        redirecionando para index.html em caso de sucesso (ex: guardando um
+        token/sessão e exibindo o texto de loginErro em caso de falha).
+    -->
+    <script src="../js/login.js"></script>
+
+</body>
+
+</html>

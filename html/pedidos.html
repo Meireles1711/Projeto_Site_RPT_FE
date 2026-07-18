@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/pedido_style.css'>
-    <script src='../script.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NV Store</title>
+
+    <link rel="stylesheet" href="../css/pedido_style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="layout">
@@ -21,16 +26,16 @@
         <a href="./cidades.html">Cidades</a>
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html">Formas de Pagamento</a>
-        <a href="./pedidos.html">Pedidos</a>
+        <a href="./pedidos.html" class="active">Pedidos</a>
         <a href="./items.html">Items Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
     </nav>
 
         <div class="conteiner">
-    
+
         <div class="card">
-    
+
         <div class="topo">
         <h1>Pedidos</h1>
         <button onclick="abrirModalAdicionar()">Adicionar Pedido</button>
@@ -38,79 +43,92 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="col-id">ID</th>
                 <th>Data</th>
-                <th>Cliente</th>
+                <th class="col-principal">Cliente</th>
                 <th>Condição Pagamento</th>
                 <th>Forma Pagamento</th>
                 <th>Prazo Entrega</th>
-                
+
             </tr>
         </thead>
-    
+
         <tbody id="tabelaTipos">
-    
+
         </tbody>
     </table>
     </div>
     </div>
-    
+
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
             <h2>Adicionar Pedido</h2>
-            <Label>Data</Label>
-            <input id="dataAdd">
+            <form id="formAdicionar" onsubmit="criar(); return false;">
 
-            <Label>Cliente id</Label>
-            <input id="clienteAdd">
-            
-            <Label>Condicao Pagamento id</Label>
-            <input id="condicaoAdd">
+                <label>Data</label>
+                <input id="dataAdd" type="date" required>
 
-            <Label>Forma Pagamento id</Label>
-            <input id="formaAdd">
-           
-            <Label> Prazo Entrega</Label>
-            <input id="prazoAdd">
+                <label>Prazo Entrega</label>
+                <input id="prazoAdd" type="date">
 
-            
-    
-           
-    
-           
-    
-            <div class="modal-buttons">
-                <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
-                <button onclick="criar()">Salvar</button>    
-            </div>
-    
+                <!-- Selects alimentados via JS a partir das listas já cadastradas -->
+                <label>Cliente</label>
+                <select id="clienteAdd" required>
+                    <option value="" selected disabled>Selecione um cliente...</option>
+                </select>
+
+                <label>Condição de Pagamento</label>
+                <select id="condicaoAdd" required>
+                    <option value="" selected disabled>Selecione...</option>
+                </select>
+
+                <label>Forma de Pagamento</label>
+                <select id="formaAdd" required>
+                    <option value="" selected disabled>Selecione...</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="button" onclick="fecharModal('modalAdicionar')">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+
+            </form>
         </div>
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
         <h2>Editar Pedido</h2>
-        <input id="idEdit" hidden>
+        <form id="formEditar" onsubmit="atualizar(); return false;">
 
-        <Label>Data</Label>
-        <input id="dataEdit">
+            <input id="idEdit" hidden>
 
-        <Label>Cliente id</Label>
-        <input id="clienteEdit">
+            <label>Data</label>
+            <input id="dataEdit" type="date" required>
 
-        <Label>Condicao Pagamento id</Label>
-        <input id="condicaoEdit">
+            <label>Prazo Entrega</label>
+            <input id="prazoEdit" type="date">
 
-        <Label>Forma Pagamento id</Label>
-        <input id="formaEdit">
+            <label>Cliente</label>
+            <select id="clienteEdit" required>
+                <option value="" selected disabled>Selecione um cliente...</option>
+            </select>
 
-        <Label>Prazo Entrega</Label>
-        <input id="prazoEdit">
+            <label>Condição de Pagamento</label>
+            <select id="condicaoEdit" required>
+                <option value="" selected disabled>Selecione...</option>
+            </select>
 
-        <div class="modal-buttons">
-            <button onclick="fecharModal('modalEditar')">Cancelar</button>
-            <button onclick="atualizar()">Atualizar</button>
-        </div>
+            <label>Forma de Pagamento</label>
+            <select id="formaEdit" required>
+                <option value="" selected disabled>Selecione...</option>
+            </select>
 
+            <div class="modal-buttons">
+                <button type="button" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button type="submit">Atualizar</button>
+            </div>
+
+        </form>
     </div>
     </div>
 
@@ -122,7 +140,7 @@
 
     </footer>
 
-    <script src="../java/pedidos.js"></script>
+    <script src="../js/pedidos.js"></script>
 
 </body>
 </html>

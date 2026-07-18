@@ -67,21 +67,32 @@ body {
     background: linear-gradient(to right, #635b5b, #807f7f);
 }
 
+/* Link da página atual */
+.menu a.active {
+    background: linear-gradient(to right, #5488c4, #88b1e1);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .25) inset;
+    font-weight: bold;
+}
+
+.menu a.active:hover {
+    background: linear-gradient(to right, #5488c4, #88b1e1);
+}
+
 /* CONTEÚDO */
 .conteiner {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 60px;
+    padding: 30px 60px 60px;
 }
 
 .card {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1150px;
     background: white;
     border-radius: 20px;
-    padding: 35px;
+    padding: 36px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
 }
 
@@ -95,16 +106,16 @@ body {
 
 .topo h1 {
     color: #333;
-    font-size: 30px;
+    font-size: 34px;
 }
 
 .topo button {
     background: #88b1e1;
     color: white;
     border: none;
-    padding: 14px 24px;
+    padding: 16px 28px;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 16px;
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
     transition: .3s;
@@ -119,6 +130,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 thead {
@@ -127,21 +139,50 @@ thead {
 }
 
 th {
-    padding: 16px;
+    padding: 20px 18px;
     text-align: left;
+    font-size: 15px;
 }
 
 td {
-    padding: 14px;
+    padding: 18px;
     border-bottom: 1px solid #ddd;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Padrão de largura de coluna em TODAS as tabelas do sistema:
+   marque o <th> do ID com class="col-id" e o <th> da coluna
+   principal (Nome/Descrição/Cliente) com class="col-principal" */
+.col-id {
+    width: 60px;
+    text-align: center;
+}
+
+.col-principal {
+    width: 30%;
 }
 
 tbody tr {
     transition: .2s;
 }
 
+tbody tr:nth-child(even) {
+    background: #f7f9fc;
+}
+
 tbody tr:hover {
     background: #eef4fc;
+}
+
+/* Estado vazio (tabela sem nenhuma linha) */
+tbody:empty::after {
+    content: "Nenhum registro cadastrado ainda.";
+    display: block;
+    padding: 30px;
+    text-align: center;
+    color: #999;
 }
 
 /* BOTÕES DA TABELA */
@@ -184,31 +225,52 @@ td button {
     z-index: 1000;
 }
 
+.modal-content form {
+    display: contents;
+}
+
 .modal-content {
     background: white;
-    width: 420px;
-    max-width: 90%;
+    width: 620px;
+    max-width: 92%;
     max-height: 85vh;
     overflow-y: auto;
     border-radius: 20px;
-    padding: 30px;
+    padding: 30px 35px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, .3);
     font-family: 'JetBrains Mono', monospace;
+
+    /* Formulário em grid de 2 colunas: label em cima do campo,
+       mas os pares label+campo lado a lado (menos vertical) */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 4px;
+    align-content: start;
 }
 
 .modal-content h2 {
-    margin-bottom: 20px;
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
     color: #333;
 }
 
 .modal-content label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 8px;
+    margin-top: 12px;
+    margin-bottom: 6px;
     font-weight: bold;
+    font-size: 14px;
+}
+
+/* Campos que precisam ocupar a largura toda (textarea, observações) */
+.modal-content label.full,
+.modal-content .full {
+    grid-column: 1 / -1;
 }
 
 .modal-content input,
+.modal-content select,
 .modal-content textarea {
     width: 100%;
     padding: 12px;
@@ -217,24 +279,45 @@ td button {
     outline: none;
     font-size: 15px;
     font-family: 'JetBrains Mono', monospace;
+    background: white;
+}
+
+.modal-content select {
+    appearance: auto;
+    cursor: pointer;
 }
 
 .modal-content textarea {
     resize: none;
     height: 70px;
+    grid-column: 1 / -1;
 }
 
 .modal-content input:focus,
+.modal-content select:focus,
 .modal-content textarea:focus {
     border-color: #88b1e1;
 }
 
+.modal-content input:invalid:not(:placeholder-shown) {
+    border-color: #f44336;
+}
+
+/* Mensagem de erro de validação (opcional, controlada por JS) */
+.campo-erro {
+    grid-column: 1 / -1;
+    color: #f44336;
+    font-size: 12px;
+    margin-top: -2px;
+}
+
 /* BOTÕES MODAL */
 .modal-buttons {
+    grid-column: 1 / -1;
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .modal-buttons button {
@@ -265,5 +348,105 @@ footer {
     color: aliceblue;
     background: black;
     padding: 20px;
+    text-align: center;
+}
+
+/* =========================================================
+   TELA DE LOGIN
+   ========================================================= */
+.login-conteiner {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #cfcfcf;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    border-radius: 20px;
+    padding: 40px 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+    text-align: center;
+}
+
+.login-card img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.login-card h1 {
+    color: #333;
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.login-card p.subtitulo {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 14px;
+}
+
+.login-card label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: -8px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.login-card input:focus {
+    border-color: #88b1e1;
+}
+
+.login-card button {
+    margin-top: 10px;
+    background: #88b1e1;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.login-card button:hover {
+    background: #5488c4;
+    transform: scale(1.02);
+}
+
+.login-erro {
+    color: #f44336;
+    font-size: 13px;
+    min-height: 16px;
+    text-align: center;
+}
+
+.login-rodape {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #999;
     text-align: center;
 }

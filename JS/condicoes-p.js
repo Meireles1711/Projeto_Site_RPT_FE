@@ -1,27 +1,26 @@
 const API_URL = 'http://localhost:3000/condicao';
 
+function limparEspacos(v) {
+    return (v ?? '').trim();
+}
 
-async function  listar() { 
-    
-
-
-
+async function listar() {
 
     const res = await fetch(API_URL);
-    const  condicoes_p = await res.json();
+    const condicoes_p = await res.json();
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    condicoes_p.forEach(tipo=> {
-        tabela.innerHTML +=`
+    condicoes_p.forEach(tipo => {
+        tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
                 <td>${tipo.descricao}</td>
                 
                  <td>
-                    <button onclick="abrirEditar(${tipo.id},'${tipo.descricao}')">Editar</button>
-                    <button onclick="deletar(${tipo.id})">Excluir</button>
+                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.descricao}')">Editar</button>
+                    <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
 
 
@@ -29,68 +28,78 @@ async function  listar() {
             </tr>
         
         `
-        
+
     });
-    }
-    
-    async function criar() {
-        const descricao = document.getElementById("descricaoAdd").value;
-       
-        await fetch(API_URL,{
-            method: "POST" ,
-            headers:{"Content-type": "application/json"},
-            body:JSON.stringify({descricao})
-        });
-        fecharModal("modalAdicionar");
-        listar();
-    }
-    function abrirModalAdicionar(){
-        document.getElementById("modalAdicionar").style.display="flex";
-    
-    }
-    function fecharModal(id){
-        document.getElementById(id).style.display ="none" ;
-        
-    }
-   
-    function abrirEditar(id,descricao) {
+}
 
-        document.getElementById("idEdit").value = id;
-        document.getElementById("descricaoEdit").value = descricao;
-       
-    
-    
-        document.getElementById("modalEditar").style.display = "flex";
-        
-    
-        
+async function criar() {
+    const form = document.getElementById("formAdicionar");
+    if (form && !form.reportValidity()) return;
+
+    const descricao = limparEspacos(document.getElementById("descricaoAdd").value);
+    if (!descricao) {
+        alert("A Descrição é obrigatória.");
+        return;
     }
 
-    async function atualizar() {
+    await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ descricao })
+    });
+    fecharModal("modalAdicionar");
+    listar();
+}
+function abrirModalAdicionar() {
+    document.getElementById("modalAdicionar").style.display = "flex";
 
-        
-        const id = document.getElementById("idEdit").value;
-        const descricao = document.getElementById("descricaoEdit").value;
-      
-        await fetch(`${API_URL}/${id}`,{
-            method:"PUT",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({descricao})
-        });
-        fecharModal("modalEditar");
-        listar();
-        
+}
+function fecharModal(id) {
+    document.getElementById(id).style.display = "none";
+
+}
+
+function abrirEditar(id, descricao) {
+
+    document.getElementById("idEdit").value = id;
+    document.getElementById("descricaoEdit").value = descricao;
+
+
+
+    document.getElementById("modalEditar").style.display = "flex";
+
+
+}
+
+async function atualizar() {
+    const form = document.getElementById("formEditar");
+    if (form && !form.reportValidity()) return;
+
+    const id = document.getElementById("idEdit").value;
+    const descricao = limparEspacos(document.getElementById("descricaoEdit").value);
+    if (!descricao) {
+        alert("A Descrição é obrigatória.");
+        return;
     }
 
+    await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ descricao })
+    });
+    fecharModal("modalEditar");
     listar();
 
+}
 
-    async function deletar(id) {
-        if (!confirm("Deseja excluir este Condição de Pagamento ?")) return;
-        await fetch(`${API_URL}/${id}`,{
-            method: "DELETE"
+listar();
+
+
+async function deletar(id) {
+    if (!confirm("Deseja excluir este Condição de Pagamento ?")) return;
+    await fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
     });
-        
-    listar();}
-    
-    
+
+    listar();
+}

@@ -27,7 +27,7 @@
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
-        <a href="./items.html">Items Pedidos</a>
+        <a href="./items.html" class="active">Items Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
     </nav>
@@ -43,10 +43,10 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="col-id">ID</th>
                 <th>Pedido</th>
                 <th>Produto</th>
-                <th>Descrição</th>
+                <th class="col-principal">Descrição</th>
                 <th>Valor Unitário</th>
                 <th>Quantidade</th>
                 <th>Subtotal</th>
@@ -64,49 +64,74 @@
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
             <h2>Adicionar Item Pedido</h2>
-            <Label>Pedido id</Label>
-            <input id="pedidoAdd">
-            <Label>Produto id</Label>
-            <input id="produtoAdd">
-            <Label>Descrição</Label>
-            <input id="descricaoAdd">
-            <Label>Valor Unitário</Label>
-            <input id="valorAdd">
-            <Label>Quantidade</Label>
-            <input id="quantidadeAdd">
-            <Label>Subtotal</Label>
-            <input id="subtotalAdd">
+            <form id="formAdicionar" onsubmit="criar(); return false;">
 
-            <div class="modal-buttons">
-                <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
-                <button onclick="criar()">Salvar</button>
-            </div>
+                <!-- Selects alimentados via JS a partir das listas já cadastradas -->
+                <label>Pedido</label>
+                <select id="pedidoAdd" required>
+                    <option value="" selected disabled>Selecione um pedido...</option>
+                </select>
 
+                <label>Produto</label>
+                <select id="produtoAdd" required>
+                    <option value="" selected disabled>Selecione um produto...</option>
+                </select>
+
+                <label class="full">Descrição</label>
+                <input class="full" id="descricaoAdd" type="text" maxlength="150">
+
+                <label>Valor Unitário</label>
+                <input id="valorAdd" type="number" min="0" step="0.01" inputmode="decimal" required>
+
+                <label>Quantidade</label>
+                <input id="quantidadeAdd" type="number" min="1" step="1" inputmode="numeric" required>
+
+                <label>Subtotal</label>
+                <input id="subtotalAdd" type="number" min="0" step="0.01" inputmode="decimal" readonly>
+
+                <div class="modal-buttons">
+                    <button type="button" onclick="fecharModal('modalAdicionar')">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+
+            </form>
         </div>
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
         <h2>Editar Item Pedido</h2>
-        <input id="idEdit" hidden>
+        <form id="formEditar" onsubmit="atualizar(); return false;">
 
-        <Label>Pedido id</Label>
-        <input id="pedidoEdit">
-        <Label>Produto id</Label>
-        <input id="produtoEdit">
-        <Label>Descrição</Label>
-        <input id="descricaoEdit">
-        <Label>Valor Unitário</Label>
-        <input id="valorEdit">
-        <Label>Quantidade</Label>
-        <input id="quantidadeEdit">
-        <Label>Subtotal</Label>
-        <input id="subtotalEdit">
+            <input id="idEdit" hidden>
 
-        <div class="modal-buttons">
-            <button onclick="fecharModal('modalEditar')">Cancelar</button>
-            <button onclick="atualizar()">Atualizar</button>
-        </div>
+            <label>Pedido</label>
+            <select id="pedidoEdit" required>
+                <option value="" selected disabled>Selecione um pedido...</option>
+            </select>
 
+            <label>Produto</label>
+            <select id="produtoEdit" required>
+                <option value="" selected disabled>Selecione um produto...</option>
+            </select>
+
+            <label class="full">Descrição</label>
+            <input class="full" id="descricaoEdit" type="text" maxlength="150">
+
+            <label>Valor Unitário</label>
+            <input id="valorEdit" type="number" min="0" step="0.01" inputmode="decimal" required>
+
+            <label>Quantidade</label>
+            <input id="quantidadeEdit" type="number" min="1" step="1" inputmode="numeric" required>
+
+            <label>Subtotal</label>
+            <input id="subtotalEdit" type="number" min="0" step="0.01" inputmode="decimal" readonly>
+
+            <div class="modal-buttons">
+                <button type="button" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button type="submit">Atualizar</button>
+            </div>
+
+        </form>
     </div>
     </div>
 
@@ -118,7 +143,7 @@
 
     </footer>
 
-    <script src="../java/items.js"></script>
+    <script src="../js/items.js"></script>
 
 </body>
 

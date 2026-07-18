@@ -23,7 +23,7 @@
         <h1>NV Store</h1>
 
         <a href="./index.html">Clientes</a>
-        <a href="./cidades.html">Cidades</a>
+        <a href="./cidades.html" class="active">Cidades</a>
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
@@ -34,9 +34,9 @@
     </nav>
 
         <div class="conteiner">
-    
+
         <div class="card">
-    
+
         <div class="topo">
         <h1>Cidades</h1>
         <button onclick="abrirModalAdicionar()">Adicionar Cidade</button>
@@ -44,56 +44,62 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
+                <th class="col-id">ID</th>
+                <th class="col-principal">Nome</th>
                 <th>UF</th>
-                
+
             </tr>
         </thead>
-    
+
         <tbody id="tabelaTipos">
-    
+
         </tbody>
     </table>
     </div>
     </div>
-    
+
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
             <h2>Adicionar Cidade</h2>
-            <Label>Nome</Label>
-            <input id="nomeAdd">
-            <Label>Uf</Label>
-            <input id="ufAdd">
-    
-           
-    
-           
-    
-            <div class="modal-buttons">
-                <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
-                <button onclick="criar()">Salvar</button>    
-            </div>
-    
+            <form id="formAdicionar" onsubmit="criar(); return false;">
+
+                <label class="full">Nome</label>
+                <input class="full" id="nomeAdd" type="text" maxlength="80" required placeholder="Nome da cidade">
+
+                <label>UF</label>
+                <input id="ufAdd" type="text" maxlength="2" minlength="2" pattern="[A-Za-z]{2}"
+                    style="text-transform:uppercase" required placeholder="MG"
+                    title="Informe a sigla do estado com 2 letras, ex: MG">
+
+                <div class="modal-buttons">
+                    <button type="button" onclick="fecharModal('modalAdicionar')">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+
+            </form>
         </div>
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
         <h2>Editar Cidade</h2>
-        <input id="idEdit" hidden>
-    
-        <Label>Nome</Label>
-        <input id="nomeEdit">
-        <Label>Uf</Label>
-        <input id="ufEdit">
-    
-       
-    
-        <div class="modal-buttons">
-            <button onclick="fecharModal('modalEditar')">Cancelar</button>
-            <button onclick="atualizar()">Atualizar</button>
-        </div>
-    
+        <form id="formEditar" onsubmit="atualizar(); return false;">
+
+            <input id="idEdit" hidden>
+
+            <label class="full">Nome</label>
+            <input class="full" id="nomeEdit" type="text" maxlength="80" required>
+
+            <label>UF</label>
+            <input id="ufEdit" type="text" maxlength="2" minlength="2" pattern="[A-Za-z]{2}"
+                style="text-transform:uppercase" required
+                title="Informe a sigla do estado com 2 letras, ex: MG">
+
+            <div class="modal-buttons">
+                <button type="button" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button type="submit">Atualizar</button>
+            </div>
+
+        </form>
     </div>
     </div>
 
@@ -105,7 +111,7 @@
 
     </footer>
 
-    <script src="../java/cidades.js"></script>
+    <script src="../js/cidades.js"></script>
 
 </body>
 

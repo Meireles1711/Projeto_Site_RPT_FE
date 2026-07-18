@@ -25,18 +25,18 @@
         <a href="./index.html">Clientes</a>
         <a href="./cidades.html">Cidades</a>
         <a href="./condicoes-p.html">Condições de Pagamento</a>
-        <a href="./tp_pagamentos.html">Formas de Pagamento</a>
+        <a href="./tp_pagamentos.html" class="active">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
         <a href="./items.html">Items Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
     </nav>
 
-   
+
         <div class="conteiner">
-    
+
         <div class="card">
-    
+
         <div class="topo">
         <h1>Formas de Pagamentos</h1>
         <button onclick="abrirModalAdicionar()">Adicionar Forma de Pagamento</button>
@@ -44,51 +44,52 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                
+                <th class="col-id">ID</th>
+                <th class="col-principal">Descrição</th>
+
             </tr>
         </thead>
-    
+
         <tbody id="tabelaTipos">
-    
+
         </tbody>
     </table>
     </div>
     </div>
-    
+
     <div class="modal" id="modalAdicionar">
         <div class="modal-content">
             <h2>Adicionar Forma Pagamento</h2>
-            <Label>Descrição</Label>
-            <input id="descricaoAdd">
-    
-           
-    
-           
-    
-            <div class="modal-buttons">
-                <button onclick="fecharModal('modalAdicionar')">Cancelar</button>
-                <button onclick="criar()">Salvar</button>    
-            </div>
-    
+            <form id="formAdicionar" onsubmit="criar(); return false;">
+
+                <label class="full">Descrição</label>
+                <input class="full" id="descricaoAdd" type="text" maxlength="100" required
+                    placeholder="Ex: Dinheiro, Cartão, Pix...">
+
+                <div class="modal-buttons">
+                    <button type="button" onclick="fecharModal('modalAdicionar')">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+
+            </form>
         </div>
     </div>
     <div class="modal" id="modalEditar">
         <div class="modal-content">
         <h2>Editar Forma de Pagamento</h2>
-        <input id="idEdit" hidden>
-    
-        <Label>Descrição</Label>
-        <input id="descricaoEdit">
-    
-       
-    
-        <div class="modal-buttons">
-            <button onclick="fecharModal('modalEditar')">Cancelar</button>
-            <button onclick="atualizar()">Atualizar</button>
-        </div>
-    
+        <form id="formEditar" onsubmit="atualizar(); return false;">
+
+            <input id="idEdit" hidden>
+
+            <label class="full">Descrição</label>
+            <input class="full" id="descricaoEdit" type="text" maxlength="100" required>
+
+            <div class="modal-buttons">
+                <button type="button" onclick="fecharModal('modalEditar')">Cancelar</button>
+                <button type="submit">Atualizar</button>
+            </div>
+
+        </form>
     </div>
     </div>
 
@@ -100,9 +101,8 @@
 
     </footer>
 
-    <script src="../java/tp_pagamentos.js"></script>
+    <script src="../js/tp_pagamentos.js"></script>
 
 </body>
 
 </html>
-
