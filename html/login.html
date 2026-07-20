@@ -1,57 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NV Store - Login</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - NV Store</title>
+  <link rel="stylesheet" href="../css/login.css">
 </head>
-
 <body>
-
-    <div class="login-conteiner">
-        <div class="login-card">
-
-            <img src="../images/logo.png" alt="Logo">
-            <h1>NV Store</h1>
-            <p class="subtitulo">Acesse o sistema com suas credenciais</p>
-
-            <form id="formLogin" onsubmit="fazerLogin(); return false;">
-
-                <label for="usuarioLogin">Usuário</label>
-                <input id="usuarioLogin" type="text" maxlength="60" required autocomplete="username"
-                    placeholder="Seu usuário ou e-mail">
-
-                <label for="senhaLogin">Senha</label>
-                <input id="senhaLogin" type="password" maxlength="60" required autocomplete="current-password"
-                    placeholder="Sua senha">
-
-                <p class="login-erro" id="loginErro"></p>
-
-                <button type="submit">Entrar</button>
-
-            </form>
-
-            <p class="login-rodape">© Pertence a Meireles Enterprises</p>
-
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Bem-vindo de volta</h2>
+      <p class="subtitle">Acesse sua conta para continuar</p>
+      <div id="alert-message" class="alert hidden"></div>
+      <form id="form-login" novalidate>
+        <div class="input-group">
+          <label for="nome">Nome de usuário</label>
+          <input type="text" id="nome" placeholder="Seu nome de usuário" autocomplete="username" required>
         </div>
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+      <div class="auth-footer">
+        <p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+      </div>
     </div>
-
-    <!--
-        Este é o protótipo visual da tela de login, no mesmo padrão do restante
-        do sistema. A função fazerLogin() ainda precisa ser implementada em
-        ../js/login.js, chamando o endpoint de autenticação do backend e
-        redirecionando para index.html em caso de sucesso (ex: guardando um
-        token/sessão e exibindo o texto de loginErro em caso de falha).
-    -->
-    <script src="../js/login.js"></script>
-
+  </div>
+  <script src="../js/login.js"></script>
 </body>
-
 </html>

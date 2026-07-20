@@ -1,3 +1,15 @@
+/* =========================================================
+   AVISO (auditoria): ESTE ARQUIVO NÃO É REFERENCIADO POR
+   NENHUM ARQUIVO HTML DO PROJETO (cidades.html usa
+   cidades_style.css, não este arquivo). Parece ser uma versão
+   antiga do layout de Cidades. Contém, inclusive, uma regra CSS
+   inválida (align-items: column, na classe .logo) e
+   overflow:hidden no body, o que travaria a rolagem da página
+   caso fosse usado. Mantido no projeto sem alteração de conteúdo
+   e sem exclusão, apenas sinalizado aqui — recomenda-se
+   confirmar se ainda é necessário e removê-lo caso não seja.
+   ========================================================= */
+
 body {
     font-family: 'JetBrains Mono', monospace;
     background-color: #cfcfcf;

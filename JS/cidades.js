@@ -1,40 +1,37 @@
 const API_URL = 'http://localhost:3000/cidades';
 
-/* ---------- Helpers de tratamento de dados ---------- */
-function limparEspacos(v) {
-    return (v ?? '').trim();
-}
-
-function somenteLetrasUF(v) {
-    return (v ?? '').replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 2);
-}
+/* Cache da última listagem vinda da API. Usado para preencher o
+   modal de edição sem precisar serializar cada campo dentro do
+   onclick do botão "Editar" (o que antes era feito com
+   escapeAttr() em cada campo — funcionava, mas era frágil e
+   deixava a tabela cheia de string concatenada). Agora o botão
+   só carrega o ID, e os dados são lidos daqui. */
+let cidadesCache = [];
 
 async function listar() {
-
-    const res = await fetch(API_URL);
-    const cidades = await res.json();
+    try {
+        cidadesCache = await apiFetch(API_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        cidadesCache = [];
+    }
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    cidades.forEach(tipo => {
+    cidadesCache.forEach(tipo => {
         tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.nome}</td>
-                  <td>${tipo.uf}</td>
-                
-                 <td>
-                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.nome}','${tipo.uf}')">Editar</button>
+                <td>${escapeHtml(tipo.nome)}</td>
+                <td>${escapeHtml(tipo.uf)}</td>
+
+                <td>
+                    <button class="editar" onclick="abrirEditar(${tipo.id})">Editar</button>
                     <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
-
-
-
             </tr>
-        
-        `
-
+        `;
     });
 }
 
@@ -50,29 +47,32 @@ async function criar() {
         return;
     }
 
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ nome, uf })
-    });
-    fecharModal("modalAdicionar");
-    listar();
-}
-function abrirModalAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-}
-function fecharModal(id) {
-    document.getElementById(id).style.display = "none";
+    try {
+        await apiFetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, uf })
+        });
+        form.reset();
+        fecharModal("modalAdicionar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
-function abrirEditar(id, nome, uf) {
+function abrirEditar(id) {
+    const cidade = cidadesCache.find(c => c.id === id);
+    if (!cidade) {
+        mostrarErro(new Error("Cidade não encontrada na lista atual. Atualize a página e tente novamente."));
+        return;
+    }
 
-    document.getElementById("idEdit").value = id;
-    document.getElementById("nomeEdit").value = nome;
-    document.getElementById("ufEdit").value = uf;
+    document.getElementById("idEdit").value = cidade.id;
+    document.getElementById("nomeEdit").value = cidade.nome;
+    document.getElementById("ufEdit").value = cidade.uf;
 
     document.getElementById("modalEditar").style.display = "flex";
-
 }
 
 async function atualizar() {
@@ -88,24 +88,28 @@ async function atualizar() {
         return;
     }
 
-    await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, uf })
-    });
-    fecharModal("modalEditar");
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, uf })
+        });
+        fecharModal("modalEditar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
+}
 
+async function deletar(id) {
+    if (!confirm("Deseja excluir esta cidade?")) return;
+    try {
+        await apiFetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await listar();
+    } catch (erro) {
+        // Erro comum aqui: cidade com clientes vinculados (FK RESTRICT).
+        mostrarErro(erro);
+    }
 }
 
 listar();
-
-
-async function deletar(id) {
-    if (!confirm("Deseja excluir esta Cidade ?")) return;
-    await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-
-    listar();
-}

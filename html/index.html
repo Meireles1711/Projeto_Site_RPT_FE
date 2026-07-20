@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NV Store</title>
+    <title>Clientes - NV Store</title>
 
     <link rel="stylesheet" href="../css/style.css">
 
@@ -27,7 +27,7 @@
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
-        <a href="./items.html">Items Pedidos</a>
+        <a href="./items.html">Itens de Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
     </nav>
@@ -60,45 +60,45 @@
     </div>
     </div>
 
-    <div class="modal" id="modalAdicionar">
+    <div class="modal" id="modalAdicionar" role="dialog" aria-modal="true" aria-labelledby="modalAdicionarTitulo">
         <div class="modal-content">
-            <h2>Adicionar Cliente</h2>
+            <h2 id="modalAdicionarTitulo">Adicionar Cliente</h2>
             <form id="formAdicionar" onsubmit="criar(); return false;">
 
-                <label>Nome</label>
+                <label for="nomeAdd">Nome</label>
                 <input id="nomeAdd" type="text" maxlength="100" required placeholder="Nome completo">
 
-                <label>CPF</label>
+                <label for="cpfAdd">CPF</label>
                 <input id="cpfAdd" type="text" inputmode="numeric" maxlength="14"
                     pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" placeholder="000.000.000-00" required
                     title="Informe um CPF válido (somente números ou no formato 000.000.000-00)">
 
-                <label>E-mail</label>
+                <label for="emailAdd">E-mail</label>
                 <input id="emailAdd" type="email" maxlength="100" placeholder="nome@exemplo.com">
 
-                <label>Telefone</label>
+                <label for="telefoneAdd">Telefone</label>
                 <input id="telefoneAdd" type="tel" inputmode="numeric" maxlength="15"
                     pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" placeholder="(00) 00000-0000"
                     title="Informe um telefone válido, ex: (00) 00000-0000">
 
                 <!-- Select alimentado via JS a partir da lista de cidades cadastradas -->
-                <label>Cidade</label>
+                <label for="cidadeAdd">Cidade</label>
                 <select id="cidadeAdd" required>
                     <option value="" selected disabled>Selecione uma cidade...</option>
                 </select>
 
-                <label>CEP</label>
+                <label for="cepAdd">CEP</label>
                 <input id="cepAdd" type="text" inputmode="numeric" maxlength="9"
                     pattern="\d{5}-?\d{3}" placeholder="00000-000"
                     title="Informe um CEP válido, ex: 00000-000">
 
-                <label class="full">Endereço</label>
+                <label class="full" for="enderecoAdd">Endereço</label>
                 <input class="full" id="enderecoAdd" type="text" maxlength="150" placeholder="Rua, número">
 
-                <label class="full">Bairro</label>
+                <label class="full" for="bairroAdd">Bairro</label>
                 <input class="full" id="bairroAdd" type="text" maxlength="80">
 
-                <label class="full">Observações</label>
+                <label class="full" for="obsAdd">Observações</label>
                 <textarea class="full" id="obsAdd" maxlength="500"></textarea>
 
                 <div class="modal-buttons">
@@ -109,45 +109,45 @@
             </form>
         </div>
     </div>
-    <div class="modal" id="modalEditar">
+    <div class="modal" id="modalEditar" role="dialog" aria-modal="true" aria-labelledby="modalEditarTitulo">
         <div class="modal-content">
-        <h2>Editar Cliente</h2>
+        <h2 id="modalEditarTitulo">Editar Cliente</h2>
         <form id="formEditar" onsubmit="atualizar(); return false;">
 
             <input id="idEdit" hidden>
 
-            <label>Nome</label>
+            <label for="nomeEdit">Nome</label>
             <input id="nomeEdit" type="text" maxlength="100" required>
 
-            <label>CPF</label>
+            <label for="cpfEdit">CPF</label>
             <input id="cpfEdit" type="text" inputmode="numeric" maxlength="14"
                 pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" required
                 title="Informe um CPF válido (somente números ou no formato 000.000.000-00)">
 
-            <label>E-mail</label>
+            <label for="emailEdit">E-mail</label>
             <input id="emailEdit" type="email" maxlength="100">
 
-            <label>Telefone</label>
+            <label for="telefoneEdit">Telefone</label>
             <input id="telefoneEdit" type="tel" inputmode="numeric" maxlength="15"
                 pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}"
                 title="Informe um telefone válido, ex: (00) 00000-0000">
 
-            <label>Cidade</label>
+            <label for="cidadeEdit">Cidade</label>
             <select id="cidadeEdit" required>
                 <option value="" selected disabled>Selecione uma cidade...</option>
             </select>
 
-            <label>CEP</label>
+            <label for="cepEdit">CEP</label>
             <input id="cepEdit" type="text" inputmode="numeric" maxlength="9"
                 pattern="\d{5}-?\d{3}" title="Informe um CEP válido, ex: 00000-000">
 
-            <label class="full">Endereço</label>
+            <label class="full" for="enderecoEdit">Endereço</label>
             <input class="full" id="enderecoEdit" type="text" maxlength="150">
 
-            <label class="full">Bairro</label>
+            <label class="full" for="bairroEdit">Bairro</label>
             <input class="full" id="bairroEdit" type="text" maxlength="80">
 
-            <label class="full">Observações</label>
+            <label class="full" for="obsEdit">Observações</label>
             <textarea class="full" id="obsEdit" maxlength="500"></textarea>
 
             <div class="modal-buttons">
@@ -167,6 +167,7 @@
 
     </footer>
 
+    <script src="../js/utils.js"></script>
     <script src="../js/clientes.js"></script>
 
 </body>

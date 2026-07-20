@@ -4,15 +4,16 @@ const PRODUTOS_URL = 'http://localhost:3000/produtos';
 
 let pedidosCache = [];
 let produtosCache = [];
+let itensCache = [];
 
 async function carregarListasRelacionadas() {
     try {
-        const [resPedidos, resProdutos] = await Promise.all([
-            fetch(PEDIDOS_URL),
-            fetch(PRODUTOS_URL)
+        const [pedidos, produtos] = await Promise.all([
+            apiFetch(PEDIDOS_URL),
+            apiFetch(PRODUTOS_URL)
         ]);
-        pedidosCache = await resPedidos.json();
-        produtosCache = await resProdutos.json();
+        pedidosCache = pedidos;
+        produtosCache = produtos;
 
         preencherSelect("pedidoAdd", pedidosCache, "Selecione um pedido...", p => `Pedido #${p.id} - ${p.data}`);
         preencherSelect("pedidoEdit", pedidosCache, "Selecione um pedido...", p => `Pedido #${p.id} - ${p.data}`);
@@ -22,20 +23,9 @@ async function carregarListasRelacionadas() {
         // Ao escolher o produto, já sugere descrição e valor unitário dele
         ligarAutoPreenchimento("Add");
         ligarAutoPreenchimento("Edit");
-    } catch (e) {
-        console.error("Não foi possível carregar pedidos/produtos:", e);
+    } catch (erro) {
+        mostrarErro(erro);
     }
-}
-
-function preencherSelect(selectId, lista, placeholder, rotulo) {
-    const select = document.getElementById(selectId);
-    if (!select) return;
-    const valorAtual = select.value;
-    select.innerHTML = `<option value="" selected disabled>${placeholder}</option>`;
-    lista.forEach(item => {
-        select.innerHTML += `<option value="${item.id}">${rotulo(item)}</option>`;
-    });
-    if (valorAtual) select.value = valorAtual;
 }
 
 function ligarAutoPreenchimento(sufixo) {
@@ -43,7 +33,6 @@ function ligarAutoPreenchimento(sufixo) {
     const inputDescricao = document.getElementById(`descricao${sufixo}`);
     const inputValor = document.getElementById(`valor${sufixo}`);
     const inputQuantidade = document.getElementById(`quantidade${sufixo}`);
-    const inputSubtotal = document.getElementById(`subtotal${sufixo}`);
 
     if (!selectProduto) return;
 
@@ -68,32 +57,35 @@ function recalcularSubtotal(sufixo) {
 }
 
 async function listar() {
-
-    const res = await fetch(API_URL);
-    const itens = await res.json();
+    try {
+        itensCache = await apiFetch(API_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        itensCache = [];
+    }
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    itens.forEach(tipo => {
+    itensCache.forEach(tipo => {
         const numeroPedido = pedidosCache.find(p => p.id == tipo.pedido_id)?.id ?? tipo.pedido_id;
         const nomeProduto = produtosCache.find(p => p.id == tipo.produto_id)?.descricao ?? tipo.produto_id;
         tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
-                <td>${numeroPedido}</td>
-                <td>${nomeProduto}</td>
-                <td>${tipo.descricao}</td>
+                <td>${escapeHtml(numeroPedido)}</td>
+                <td>${escapeHtml(nomeProduto)}</td>
+                <td>${escapeHtml(tipo.descricao)}</td>
                 <td>${tipo.valor_unit}</td>
                 <td>${tipo.quantidade}</td>
                 <td>${tipo.subtotal}</td>
 
                 <td>
-                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.pedido_id}','${tipo.produto_id}','${(tipo.descricao ?? '').replace(/'/g, "\\'")}','${tipo.valor_unit}','${tipo.quantidade}','${tipo.subtotal}')">Editar</button>
+                    <button class="editar" onclick="abrirEditar(${tipo.id})">Editar</button>
                     <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
             </tr>
-        `
+        `;
     });
 }
 
@@ -101,7 +93,7 @@ function lerFormulario(sufixo) {
     return {
         pedido_id: document.getElementById(`pedido${sufixo}`).value,
         produto_id: document.getElementById(`produto${sufixo}`).value,
-        descricao: (document.getElementById(`descricao${sufixo}`).value ?? '').trim(),
+        descricao: limparEspacos(document.getElementById(`descricao${sufixo}`).value),
         valor_unit: Number(document.getElementById(`valor${sufixo}`).value),
         quantidade: Number(document.getElementById(`quantidade${sufixo}`).value),
         subtotal: Number(document.getElementById(`subtotal${sufixo}`).value)
@@ -132,31 +124,34 @@ async function criar() {
     const dados = lerFormulario("Add");
     if (!dadosValidos(dados)) return;
 
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalAdicionar");
-    listar();
+    try {
+        await apiFetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        form.reset();
+        fecharModal("modalAdicionar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
-function abrirModalAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-}
+function abrirEditar(id) {
+    const item = itensCache.find(i => i.id === id);
+    if (!item) {
+        mostrarErro(new Error("Item não encontrado na lista atual. Atualize a página e tente novamente."));
+        return;
+    }
 
-function fecharModal(id) {
-    document.getElementById(id).style.display = "none";
-}
-
-function abrirEditar(id, pedido_id, produto_id, descricao, valor_unit, quantidade, subtotal) {
-    document.getElementById("idEdit").value = id;
-    document.getElementById("pedidoEdit").value = pedido_id;
-    document.getElementById("produtoEdit").value = produto_id;
-    document.getElementById("descricaoEdit").value = descricao;
-    document.getElementById("valorEdit").value = valor_unit;
-    document.getElementById("quantidadeEdit").value = quantidade;
-    document.getElementById("subtotalEdit").value = subtotal;
+    document.getElementById("idEdit").value = item.id;
+    document.getElementById("pedidoEdit").value = item.pedido_id;
+    document.getElementById("produtoEdit").value = item.produto_id;
+    document.getElementById("descricaoEdit").value = item.descricao;
+    document.getElementById("valorEdit").value = item.valor_unit;
+    document.getElementById("quantidadeEdit").value = item.quantidade;
+    document.getElementById("subtotalEdit").value = item.subtotal;
 
     document.getElementById("modalEditar").style.display = "flex";
 }
@@ -170,21 +165,27 @@ async function atualizar() {
     const dados = lerFormulario("Edit");
     if (!dadosValidos(dados)) return;
 
-    await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalEditar");
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        fecharModal("modalEditar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
 async function deletar(id) {
     if (!confirm("Deseja excluir este Item?")) return;
-    await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
 async function iniciar() {

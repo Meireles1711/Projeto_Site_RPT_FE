@@ -1,0 +1,32 @@
+/* =========================================================
+   AVISO (auditoria): este arquivo é IDÊNTICO a login.css / cadastro.css.
+   Sugestão futura: unificar em um único auth.css compartilhado
+   pelas telas de login e cadastro. Mantido separado agora a
+   pedido do cliente.
+   ========================================================= */
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+.auth-container { width: 100%; max-width: 420px; padding: 20px; }
+.auth-card { background: #ffffff; padding: 35px 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); }
+.auth-card h2 { color: #2c3e50; margin-bottom: 6px; text-align: center; }
+.subtitle { color: #7f8c8d; font-size: 0.9rem; text-align: center; margin-bottom: 24px; }
+.input-group { margin-bottom: 18px; }
+.input-group label { display: block; margin-bottom: 6px; color: #34495e; font-size: 0.9rem; font-weight: 600; }
+.input-group input { width: 100%; padding: 12px 14px; border: 1px solid #dcdfe6; border-radius: 6px; font-size: 0.95rem; }
+.input-group input:focus { outline: none; border-color: #3498db; }
+.btn-primary { width: 100%; padding: 12px; background-color: #3498db; color: #ffffff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
+.btn-primary:hover { background-color: #2980b9; }
+.auth-footer { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+.auth-footer a { color: #3498db; text-decoration: none; font-weight: 600; }
+.alert { padding: 10px 14px; border-radius: 6px; font-size: 0.88rem; margin-bottom: 18px; text-align: center; }
+.alert.error { background-color: #fde8e8; color: #e74c3c; border: 1px solid #f8b4b4; }
+.alert.success { background-color: #def7ec; color: #27ae60; border: 1px solid #bcf0da; }
+.hidden { display: none; }
+
+/* RESPONSIVO */
+@media (max-width: 480px) {
+  .auth-container { padding: 8px; }
+  .auth-card { padding: 26px 20px; border-radius: 10px; }
+  .auth-card h2 { font-size: 1.25rem; }
+}

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NV Store</title>
+    <title>Formas de Pagamento - NV Store</title>
 
     <link rel="stylesheet" href="../css/tp-pagamento.css">
 
@@ -27,7 +27,7 @@
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html" class="active">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
-        <a href="./items.html">Items Pedidos</a>
+        <a href="./items.html">Itens de Pedidos</a>
         <a href="./produtos.html">Produtos</a>
 
     </nav>
@@ -57,12 +57,12 @@
     </div>
     </div>
 
-    <div class="modal" id="modalAdicionar">
+    <div class="modal" id="modalAdicionar" role="dialog" aria-modal="true" aria-labelledby="modalAdicionarTitulo">
         <div class="modal-content">
-            <h2>Adicionar Forma Pagamento</h2>
+            <h2 id="modalAdicionarTitulo">Adicionar Forma Pagamento</h2>
             <form id="formAdicionar" onsubmit="criar(); return false;">
 
-                <label class="full">Descrição</label>
+                <label class="full" for="descricaoAdd">Descrição</label>
                 <input class="full" id="descricaoAdd" type="text" maxlength="100" required
                     placeholder="Ex: Dinheiro, Cartão, Pix...">
 
@@ -74,14 +74,14 @@
             </form>
         </div>
     </div>
-    <div class="modal" id="modalEditar">
+    <div class="modal" id="modalEditar" role="dialog" aria-modal="true" aria-labelledby="modalEditarTitulo">
         <div class="modal-content">
-        <h2>Editar Forma de Pagamento</h2>
+        <h2 id="modalEditarTitulo">Editar Forma de Pagamento</h2>
         <form id="formEditar" onsubmit="atualizar(); return false;">
 
             <input id="idEdit" hidden>
 
-            <label class="full">Descrição</label>
+            <label class="full" for="descricaoEdit">Descrição</label>
             <input class="full" id="descricaoEdit" type="text" maxlength="100" required>
 
             <div class="modal-buttons">
@@ -101,6 +101,7 @@
 
     </footer>
 
+    <script src="../js/utils.js"></script>
     <script src="../js/tp_pagamentos.js"></script>
 
 </body>

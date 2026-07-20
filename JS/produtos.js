@@ -1,32 +1,33 @@
 const API_URL = 'http://localhost:3000/produtos';
 
-function limparEspacos(v) {
-    return (v ?? '').trim();
-}
+let produtosCache = [];
 
 async function listar() {
-
-    const res = await fetch(API_URL);
-    const produtos = await res.json();
+    try {
+        produtosCache = await apiFetch(API_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        produtosCache = [];
+    }
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    produtos.forEach(tipo => {
+    produtosCache.forEach(tipo => {
         tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.descricao}</td>
-                <td>${tipo.unidade}</td>
+                <td>${escapeHtml(tipo.descricao)}</td>
+                <td>${escapeHtml(tipo.unidade)}</td>
                 <td>${tipo.valor_unit}</td>
                 <td>${tipo.estoque}</td>
 
                 <td>
-                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.descricao}','${tipo.unidade}','${tipo.valor_unit}','${tipo.estoque}')">Editar</button>
+                    <button class="editar" onclick="abrirEditar(${tipo.id})">Editar</button>
                     <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
             </tr>
-        `
+        `;
     });
 }
 
@@ -62,29 +63,32 @@ async function criar() {
     const dados = lerFormulario("Add");
     if (!dadosValidos(dados)) return;
 
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalAdicionar");
-    listar();
+    try {
+        await apiFetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        form.reset();
+        fecharModal("modalAdicionar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
-function abrirModalAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-}
+function abrirEditar(id) {
+    const produto = produtosCache.find(p => p.id === id);
+    if (!produto) {
+        mostrarErro(new Error("Produto não encontrado na lista atual. Atualize a página e tente novamente."));
+        return;
+    }
 
-function fecharModal(id) {
-    document.getElementById(id).style.display = "none";
-}
-
-function abrirEditar(id, descricao, unidade, valor_unit, estoque) {
-    document.getElementById("idEdit").value = id;
-    document.getElementById("descricaoEdit").value = descricao;
-    document.getElementById("unidadeEdit").value = unidade;
-    document.getElementById("valorEdit").value = valor_unit;
-    document.getElementById("estoqueEdit").value = estoque;
+    document.getElementById("idEdit").value = produto.id;
+    document.getElementById("descricaoEdit").value = produto.descricao;
+    document.getElementById("unidadeEdit").value = produto.unidade;
+    document.getElementById("valorEdit").value = produto.valor_unit;
+    document.getElementById("estoqueEdit").value = produto.estoque;
 
     document.getElementById("modalEditar").style.display = "flex";
 }
@@ -97,21 +101,28 @@ async function atualizar() {
     const dados = lerFormulario("Edit");
     if (!dadosValidos(dados)) return;
 
-    await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalEditar");
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        fecharModal("modalEditar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
 async function deletar(id) {
     if (!confirm("Deseja excluir este Produto?")) return;
-    await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await listar();
+    } catch (erro) {
+        // Erro comum aqui: produto em uso em itens_pedido (FK RESTRICT).
+        mostrarErro(erro);
+    }
 }
 
 listar();

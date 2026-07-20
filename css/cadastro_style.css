@@ -1,0 +1,62 @@
+/* =========================================================
+   AVISO (auditoria): ESTE ARQUIVO NÃO É REFERENCIADO POR
+   NENHUM ARQUIVO HTML DO PROJETO. As classes aqui definidas
+   (.campo, .mensagem-erro, .btn-primario, .link-secundario)
+   também não existem em nenhum HTML (cadastro.html usa
+   .input-group, .btn-primary, .auth-footer, definidos em
+   cadastro.css). Parece ser um rascunho anterior de estilo,
+   substituído pelo cadastro.css atual. Mantido sem exclusão,
+   apenas sinalizado — recomenda-se remover se confirmado que
+   não é mais usado.
+   ========================================================= */
+
+/* Complementa o style.css já usado no login.html.
+   Assume as classes .login-container e .login-card já existentes
+   (mesmo card branco centralizado, mesma tipografia do sistema).
+   Se os nomes de classe do seu login.html forem diferentes, ajuste aqui. */
+
+.campo {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.campo label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.mensagem-erro {
+  color: #c0392b;
+  font-size: 0.85rem;
+  min-height: 18px;
+  margin: 8px 0;
+}
+
+.btn-primario {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #1c1c1c;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primario:hover {
+  background: #333;
+}
+
+.link-secundario {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.link-secundario a {
+  color: #1c1c1c;
+  font-weight: 600;
+  text-decoration: underline;
+}

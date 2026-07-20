@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NV Store</title>
+    <title>Produtos - NV Store</title>
 
     <link rel="stylesheet" href="../css/produtos.css">
 
@@ -27,7 +27,7 @@
         <a href="./condicoes-p.html">Condições de Pagamento</a>
         <a href="./tp_pagamentos.html">Formas de Pagamento</a>
         <a href="./pedidos.html">Pedidos</a>
-        <a href="./items.html">Items Pedidos</a>
+        <a href="./items.html">Itens de Pedidos</a>
         <a href="./produtos.html" class="active">Produtos</a>
 
 
@@ -46,7 +46,7 @@
             <tr>
                 <th class="col-id">ID</th>
                 <th class="col-principal">Descrição</th>
-                <th>Valor Unitario</th>
+                <th>Valor Unitário</th>
                 <th>Estoque</th>
 
             </tr>
@@ -59,23 +59,23 @@
     </div>
     </div>
 
-    <div class="modal" id="modalAdicionar">
+    <div class="modal" id="modalAdicionar" role="dialog" aria-modal="true" aria-labelledby="modalAdicionarTitulo">
         <div class="modal-content">
-            <h2>Adicionar Produto</h2>
+            <h2 id="modalAdicionarTitulo">Adicionar Produto</h2>
             <form id="formAdicionar" onsubmit="criar(); return false;">
 
-                <label class="full">Descrição</label>
+                <label class="full" for="descricaoAdd">Descrição</label>
                 <input class="full" id="descricaoAdd" type="text" maxlength="100" required
                     placeholder="Nome do produto">
 
-                <label>Unidade</label>
+                <label for="unidadeAdd">Unidade</label>
                 <input id="unidadeAdd" type="text" maxlength="10" placeholder="UN, KG, CX...">
 
-                <label>Valor Unitário</label>
+                <label for="valorAdd">Valor Unitário</label>
                 <input id="valorAdd" type="number" min="0" step="0.01" inputmode="decimal" required
                     placeholder="0.00">
 
-                <label>Estoque</label>
+                <label for="estoqueAdd">Estoque</label>
                 <input id="estoqueAdd" type="number" min="0" step="1" inputmode="numeric" required
                     placeholder="0">
 
@@ -87,23 +87,23 @@
             </form>
         </div>
     </div>
-    <div class="modal" id="modalEditar">
+    <div class="modal" id="modalEditar" role="dialog" aria-modal="true" aria-labelledby="modalEditarTitulo">
         <div class="modal-content">
-        <h2>Editar Produto</h2>
+        <h2 id="modalEditarTitulo">Editar Produto</h2>
         <form id="formEditar" onsubmit="atualizar(); return false;">
 
             <input id="idEdit" hidden>
 
-            <label class="full">Descrição</label>
+            <label class="full" for="descricaoEdit">Descrição</label>
             <input class="full" id="descricaoEdit" type="text" maxlength="100" required>
 
-            <label>Unidade</label>
+            <label for="unidadeEdit">Unidade</label>
             <input id="unidadeEdit" type="text" maxlength="10">
 
-            <label>Valor Unitário</label>
+            <label for="valorEdit">Valor Unitário</label>
             <input id="valorEdit" type="number" min="0" step="0.01" inputmode="decimal" required>
 
-            <label>Estoque</label>
+            <label for="estoqueEdit">Estoque</label>
             <input id="estoqueEdit" type="number" min="0" step="1" inputmode="numeric" required>
 
             <div class="modal-buttons">
@@ -123,6 +123,7 @@
 
     </footer>
 
+    <script src="../js/utils.js"></script>
     <script src="../js/produtos.js"></script>
 
 </body>

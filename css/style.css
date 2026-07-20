@@ -1,4 +1,14 @@
 /* =========================================================
+   AVISO (auditoria): este arquivo é IDÊNTICO a:
+   cidades_style.css, condicoes-p.css, items.css,
+   pedido_style.css, produtos.css, style.css, tp-pagamento.css
+   Sugestão: futuramente, unificar em um único
+   arquivo (ex.: layout-listagem.css) importado por todas
+   as páginas de listagem, para reduzir duplicação e
+   facilitar manutenção. Mantido separado agora a pedido do cliente.
+   ========================================================= */
+
+/* =========================================================
    PADRÃO NV STORE — TELAS DE LISTAGEM (tabela + modal)
    ========================================================= */
 
@@ -352,7 +362,7 @@ footer {
 }
 
 /* =========================================================
-   TELA DE LOGIN
+   TELA DE LOGIN (usada dentro de páginas de listagem, se houver)
    ========================================================= */
 .login-conteiner {
     flex: 1;
@@ -449,4 +459,106 @@ footer {
     font-size: 12px;
     color: #999;
     text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .menu {
+        width: 100%;
+        min-width: 0;
+        flex-direction: row;
+        align-items: center;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 12px 15px;
+        background: linear-gradient(to right, hsl(0, 0%, 25%) 5%, #000000 60%);
+    }
+
+    .menu img {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .menu h1 {
+        display: none;
+    }
+
+    .menu a {
+        width: auto;
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .conteiner {
+        padding: 20px;
+        align-items: stretch;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 14px;
+        overflow-x: auto;
+    }
+
+    .topo {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .topo h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .topo button {
+        width: 100%;
+    }
+
+    table {
+        table-layout: auto;
+        min-width: 620px;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        width: 92%;
+        padding: 22px;
+        row-gap: 2px;
+    }
+
+    .login-conteiner {
+        padding: 20px;
+    }
+
+    .login-card {
+        padding: 30px 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .topo h1 {
+        font-size: 20px;
+    }
+
+    .modal-content h2 {
+        font-size: 18px;
+    }
 }

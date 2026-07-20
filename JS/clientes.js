@@ -2,62 +2,49 @@ const API_URL = 'http://localhost:3000/clientes';
 const CIDADES_URL = 'http://localhost:3000/cidades';
 
 let cidadesCache = [];
-
-/* ---------- Helpers de tratamento de dados ---------- */
-function limparEspacos(v) {
-    return (v ?? '').trim();
-}
-
-function somenteNumeros(v) {
-    return (v ?? '').replace(/\D/g, '');
-}
+let clientesCache = [];
 
 /* Carrega a lista de cidades e preenche os dois selects (Add/Edit) */
 async function carregarCidades() {
     try {
-        const res = await fetch(CIDADES_URL);
-        cidadesCache = await res.json();
-
-        ["cidadeAdd", "cidadeEdit"].forEach(selectId => {
-            const select = document.getElementById(selectId);
-            if (!select) return;
-            const valorAtual = select.value;
-            select.innerHTML = '<option value="" selected disabled>Selecione uma cidade...</option>';
-            cidadesCache.forEach(c => {
-                select.innerHTML += `<option value="${c.id}">${c.nome} - ${c.uf}</option>`;
-            });
-            if (valorAtual) select.value = valorAtual;
-        });
-    } catch (e) {
-        console.error("Não foi possível carregar as cidades:", e);
+        cidadesCache = await apiFetch(CIDADES_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        cidadesCache = [];
     }
+
+    preencherSelect("cidadeAdd", cidadesCache, "Selecione uma cidade...", c => `${c.nome} - ${c.uf}`);
+    preencherSelect("cidadeEdit", cidadesCache, "Selecione uma cidade...", c => `${c.nome} - ${c.uf}`);
 }
 
 async function listar() {
-
-    const res = await fetch(API_URL);
-    const clientes = await res.json();
+    try {
+        clientesCache = await apiFetch(API_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        clientesCache = [];
+    }
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    clientes.forEach(tipo => {
+    clientesCache.forEach(tipo => {
         const nomeCidade = cidadesCache.find(c => c.id == tipo.cidade_id)?.nome ?? tipo.cidade_id;
         tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.nome}</td>
-                <td>${tipo.cpf}</td>
-                <td>${nomeCidade}</td>
-                <td>${tipo.telefone}</td>
-                <td>${tipo.email}</td>
+                <td>${escapeHtml(tipo.nome)}</td>
+                <td>${escapeHtml(tipo.cpf)}</td>
+                <td>${escapeHtml(nomeCidade)}</td>
+                <td>${escapeHtml(tipo.telefone)}</td>
+                <td>${escapeHtml(tipo.email)}</td>
 
                 <td>
-                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.nome ?? ''}','${tipo.endereco ?? ''}','${tipo.bairro ?? ''}','${tipo.cep ?? ''}','${tipo.cidade_id ?? ''}','${tipo.cpf ?? ''}','${tipo.email ?? ''}','${tipo.telefone ?? ''}','${(tipo.observacoes ?? '').replace(/'/g, "\\'")}')">Editar</button>
+                    <button class="editar" onclick="abrirEditar(${tipo.id})">Editar</button>
                     <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
             </tr>
-        `
+        `;
     });
 }
 
@@ -109,34 +96,38 @@ async function criar() {
     const dados = lerFormulario("Add");
     if (!dadosValidos(dados)) return;
 
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalAdicionar");
-    listar();
+    try {
+        await apiFetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        form.reset();
+        fecharModal("modalAdicionar");
+        await listar();
+    } catch (erro) {
+        // Erro comum aqui: CPF duplicado (UNIQUE KEY cpf_UNIQUE).
+        mostrarErro(erro);
+    }
 }
 
-function abrirModalAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-}
+function abrirEditar(id) {
+    const cliente = clientesCache.find(c => c.id === id);
+    if (!cliente) {
+        mostrarErro(new Error("Cliente não encontrado na lista atual. Atualize a página e tente novamente."));
+        return;
+    }
 
-function fecharModal(id) {
-    document.getElementById(id).style.display = "none";
-}
-
-function abrirEditar(id, nome, endereco, bairro, cep, cidade_id, cpf, email, telefone, observacoes) {
-    document.getElementById("idEdit").value = id;
-    document.getElementById("nomeEdit").value = nome;
-    document.getElementById("enderecoEdit").value = endereco;
-    document.getElementById("bairroEdit").value = bairro;
-    document.getElementById("cepEdit").value = cep;
-    document.getElementById("cidadeEdit").value = cidade_id;
-    document.getElementById("cpfEdit").value = cpf;
-    document.getElementById("emailEdit").value = email;
-    document.getElementById("telefoneEdit").value = telefone;
-    document.getElementById("obsEdit").value = observacoes;
+    document.getElementById("idEdit").value = cliente.id;
+    document.getElementById("nomeEdit").value = cliente.nome;
+    document.getElementById("enderecoEdit").value = cliente.endereco;
+    document.getElementById("bairroEdit").value = cliente.bairro;
+    document.getElementById("cepEdit").value = cliente.cep;
+    document.getElementById("cidadeEdit").value = cliente.cidade_id;
+    document.getElementById("cpfEdit").value = cliente.cpf;
+    document.getElementById("emailEdit").value = cliente.email;
+    document.getElementById("telefoneEdit").value = cliente.telefone;
+    document.getElementById("obsEdit").value = cliente.observacoes;
 
     document.getElementById("modalEditar").style.display = "flex";
 }
@@ -149,21 +140,28 @@ async function atualizar() {
     const dados = lerFormulario("Edit");
     if (!dadosValidos(dados)) return;
 
-    await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
-    });
-    fecharModal("modalEditar");
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dados)
+        });
+        fecharModal("modalEditar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
 async function deletar(id) {
     if (!confirm("Deseja excluir este Cliente?")) return;
-    await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await listar();
+    } catch (erro) {
+        // Erro comum aqui: cliente com pedidos vinculados (FK RESTRICT).
+        mostrarErro(erro);
+    }
 }
 
 async function iniciar() {

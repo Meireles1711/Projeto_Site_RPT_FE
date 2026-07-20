@@ -1,34 +1,30 @@
 const API_URL = 'http://localhost:3000/formas';
 
-function limparEspacos(v) {
-    return (v ?? '').trim();
-}
+let formasCache = [];
 
 async function listar() {
-
-    const res = await fetch(API_URL);
-    const formas_p = await res.json();
+    try {
+        formasCache = await apiFetch(API_URL);
+    } catch (erro) {
+        mostrarErro(erro);
+        formasCache = [];
+    }
 
     const tabela = document.getElementById("tabelaTipos");
     tabela.innerHTML = "";
 
-    formas_p.forEach(tipo => {
+    formasCache.forEach(tipo => {
         tabela.innerHTML += `
             <tr>
                 <td>${tipo.id}</td>
-                <td>${tipo.descricao}</td>
-                
-                 <td>
-                    <button class="editar" onclick="abrirEditar(${tipo.id},'${tipo.descricao}')">Editar</button>
+                <td>${escapeHtml(tipo.descricao)}</td>
+
+                <td>
+                    <button class="editar" onclick="abrirEditar(${tipo.id})">Editar</button>
                     <button class="excluir" onclick="deletar(${tipo.id})">Excluir</button>
                 </td>
-
-
-
             </tr>
-        
-        `
-
+        `;
     });
 }
 
@@ -42,33 +38,31 @@ async function criar() {
         return;
     }
 
-    await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ descricao })
-    });
-    fecharModal("modalAdicionar");
-    listar();
-}
-function abrirModalAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-
-}
-function fecharModal(id) {
-    document.getElementById(id).style.display = "none";
-
+    try {
+        await apiFetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ descricao })
+        });
+        form.reset();
+        fecharModal("modalAdicionar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
 }
 
-function abrirEditar(id, descricao) {
+function abrirEditar(id) {
+    const forma = formasCache.find(f => f.id === id);
+    if (!forma) {
+        mostrarErro(new Error("Registro não encontrado na lista atual. Atualize a página e tente novamente."));
+        return;
+    }
 
-    document.getElementById("idEdit").value = id;
-    document.getElementById("descricaoEdit").value = descricao;
-
-
+    document.getElementById("idEdit").value = forma.id;
+    document.getElementById("descricaoEdit").value = forma.descricao;
 
     document.getElementById("modalEditar").style.display = "flex";
-
-
 }
 
 async function atualizar() {
@@ -82,24 +76,28 @@ async function atualizar() {
         return;
     }
 
-    await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ descricao })
-    });
-    fecharModal("modalEditar");
-    listar();
+    try {
+        await apiFetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ descricao })
+        });
+        fecharModal("modalEditar");
+        await listar();
+    } catch (erro) {
+        mostrarErro(erro);
+    }
+}
 
+async function deletar(id) {
+    if (!confirm("Deseja excluir esta Forma de Pagamento?")) return;
+    try {
+        await apiFetch(`${API_URL}/${id}`, { method: "DELETE" });
+        await listar();
+    } catch (erro) {
+        // Erro comum aqui: forma de pagamento em uso por algum pedido (FK RESTRICT).
+        mostrarErro(erro);
+    }
 }
 
 listar();
-
-
-async function deletar(id) {
-    if (!confirm("Deseja excluir esta Forma de Pagamento ?")) return;
-    await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-
-    listar();
-}
